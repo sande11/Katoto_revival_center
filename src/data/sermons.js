@@ -1,0 +1,81 @@
+/**
+ * Sermon entries for Sermons page and featured sermon on Home.
+ * Replace with real data or API later.
+ */
+export const sermonSeries = [
+  'Revival Fire',
+  'Walking in Faith',
+  'The Holy Spirit',
+  'Kingdom Living',
+  'Prayer & Fasting',
+  'Grace & Mercy',
+];
+
+export const sermons = [
+  {
+    id: '1',
+    title: 'The Fire of Revival',
+    speaker: 'Pastor John Mwangi',
+    date: '2025-02-16',
+    series: 'Revival Fire',
+    thumbnail: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=225&fit=crop',
+    youtubeId: 'dQw4w9WgXcQ',
+    notesUrl: '#',
+    description: 'Understanding how revival fire transforms hearts and communities.',
+  },
+  {
+    id: '2',
+    title: 'Faith That Moves Mountains',
+    speaker: 'Pastor John Mwangi',
+    date: '2025-02-09',
+    series: 'Walking in Faith',
+    thumbnail: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=400&h=225&fit=crop',
+    youtubeId: 'dQw4w9WgXcQ',
+    notesUrl: '#',
+    description: 'Building unshakeable faith in the promises of God.',
+  },
+  {
+    id: '3',
+    title: 'The Comforter Among Us',
+    speaker: 'Elder Grace Wanjiru',
+    date: '2025-02-02',
+    series: 'The Holy Spirit',
+    thumbnail: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=225&fit=crop',
+    youtubeId: 'dQw4w9WgXcQ',
+    notesUrl: '#',
+    description: 'Experiencing the presence and power of the Holy Spirit.',
+  },
+  {
+    id: '4',
+    title: 'Living as Kingdom Citizens',
+    speaker: 'Pastor John Mwangi',
+    date: '2025-01-26',
+    series: 'Kingdom Living',
+    thumbnail: 'https://images.unsplash.com/photo-1507680434567-5739c80be1aa?w=400&h=225&fit=crop',
+    youtubeId: 'dQw4w9WgXcQ',
+    notesUrl: '#',
+    description: 'Practical steps to align our lives with God\'s kingdom.',
+  },
+  {
+    id: '5',
+    title: 'When We Pray',
+    speaker: 'Elder Grace Wanjiru',
+    date: '2025-01-19',
+    series: 'Prayer & Fasting',
+    thumbnail: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=225&fit=crop',
+    youtubeId: 'dQw4w9WgXcQ',
+    notesUrl: '#',
+    description: 'The power of persistent prayer and fasting.',
+  },
+  {
+    id: '6',
+    title: 'Grace for the Journey',
+    speaker: 'Pastor John Mwangi',
+    date: '2025-01-12',
+    series: 'Grace & Mercy',
+    thumbnail: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=225&fit=crop',
+    youtubeId: 'dQw4w9WgXcQ',
+    notesUrl: '#',
+    description: 'Receiving and extending God\'s grace every day.',
+  },
+];

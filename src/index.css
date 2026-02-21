@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Trust & Tradition: White primary, Deep Royal Blue headings, Charcoal body text */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans bg-white antialiased;
+    color: #333333;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-semibold;
+    color: #002366;
+  }
+}
+
+@layer utilities {
+  .section-light {
+    @apply bg-gray-50;
+  }
+  .section-white {
+    @apply bg-white;
+  }
+}
