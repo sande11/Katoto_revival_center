@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * Floating "Back to Top" button, shown after user scrolls down.
  */
 export default function BackToTop() {
-  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -26,10 +24,15 @@ export default function BackToTop() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-30 bg-gold text-white font-semibold px-4 py-2 rounded-full shadow-lg hover:bg-gold-500 transition-colors"
-          aria-label={t('common.backToTop')}
+          className="fixed bottom-6 right-4 z-30 w-10 h-10 rounded-full shadow-lg flex items-center justify-center transition-colors"
+          style={{ backgroundColor: '#C5A059' }}
+          onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#b08d47'; }}
+          onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#C5A059'; }}
+          aria-label="Back to top"
         >
-          {t('common.backToTop')}
+          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 15l7-7 7 7" />
+          </svg>
         </motion.button>
       )}
     </AnimatePresence>
