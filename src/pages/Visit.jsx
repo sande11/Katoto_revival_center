@@ -83,7 +83,7 @@ export default function Visit() {
             <section className="rounded-xl overflow-hidden border border-gray-200 aspect-video bg-gray-200">
               <iframe
                 title="Church location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31430.0!2d34.0207!3d-11.4659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19b7c46b1b1b1b1b%3A0x0!2sKatoto%2C+Mzuzu%2C+Malawi!5e0!3m2!1sen!2smw!4v1740000000000"
+                src="https://maps.google.com/maps?q=G2V5%2B6FH+Mzuzu&output=embed&z=17"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
