@@ -119,19 +119,19 @@ export default function Contact() {
             <div>
               <h3 className="font-serif text-xl text-royal mb-4">Church Info</h3>
               <ul className="space-y-3 text-charcoal mb-6">
-                <li><strong>Address:</strong> Katoto, Nairobi, Kenya</li>
+                <li><strong>Address:</strong> Katoto, Mzuzu, Malawi</li>
                 <li><strong>Email:</strong> info@katotorevivalcenter.org</li>
-                <li><strong>Phone:</strong> +254 700 000 000</li>
+                <li><strong>Phone:</strong> +265 998 107 748</li>
               </ul>
               <div className="flex gap-4 mb-6">
                 <a href="https://www.facebook.com/katotorevivalcenter" target="_blank" rel="noopener noreferrer" className="text-royal hover:text-gold">Facebook</a>
                 <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="text-royal hover:text-gold">YouTube</a>
-                <a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer" className="text-royal hover:text-gold">WhatsApp</a>
+                <a href="https://wa.me/265998107748" target="_blank" rel="noopener noreferrer" className="text-royal hover:text-gold">WhatsApp</a>
               </div>
               <div className="rounded-xl overflow-hidden border border-gray-200 aspect-video bg-gray-200">
                 <iframe
                   title="Church location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.814239762386!2d36.8214!3d-1.2921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwMTczMTEuNiJTIDM2wrA0OTMxNy4wIkU!5e0!3m2!1sen!2ske!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31430.0!2d34.0207!3d-11.4659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19b7c46b1b1b1b1b%3A0x0!2sKatoto%2C+Mzuzu%2C+Malawi!5e0!3m2!1sen!2smw!4v1740000000000"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

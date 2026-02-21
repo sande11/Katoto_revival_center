@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
+import logoKatoto from '../assets/logo-katoto.jpg';
 
 const navItems = [
   { path: '/', labelKey: 'nav.home', end: true },
@@ -47,12 +48,12 @@ export default function Navbar() {
             to="/"
             className="flex items-center gap-2 flex-shrink-0 group"
           >
-            <div
-              className="w-9 h-9 rounded-full flex items-center justify-center font-serif font-bold text-lg flex-shrink-0"
-              style={{ backgroundColor: '#C5A059', color: '#002366' }}
-            >
-              K
-            </div>
+            <img
+              src={logoKatoto}
+              alt="Katoto Revival Center"
+              className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2"
+              style={{ borderColor: '#C5A059' }}
+            />
             <span
               className="font-serif font-semibold leading-tight"
               style={{ color: '#ffffff', fontSize: '1.1rem' }}

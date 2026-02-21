@@ -1,13 +1,15 @@
 /**
- * Leadership team for About page. Replace with real names, titles, and photos.
+ * Leadership team for About page.
  */
+import bishopNdewere from '../assets/bishop-ndewere.jpg';
+
 export const team = [
   {
     id: '1',
-    name: 'Pastor John Mwangi',
+    name: 'Bishop Ndewere',
     title: 'Senior Pastor',
-    bio: 'Pastor John has served at Katoto Revival Center for over 15 years. His heart is for revival, discipleship, and seeing families transformed by the Gospel.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+    bio: 'Bishop Ndewere leads Katoto Revival Center with a burning passion for revival, discipleship, and seeing lives transformed by the power of the Holy Spirit.',
+    image: bishopNdewere,
   },
   {
     id: '2',

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import bishopNdewere from '../assets/bishop-ndewere.jpg';
 import SectionHeader from '../components/SectionHeader';
 import EventCard from '../components/EventCard';
 import CTABanner from '../components/CTABanner';
@@ -178,8 +179,8 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
-                alt="Pastor"
+                src={bishopNdewere}
+                alt="Bishop Ndewere"
                 className="w-full h-full object-cover"
               />
             </motion.div>
@@ -188,7 +189,7 @@ export default function Home() {
               <p className="text-charcoal leading-relaxed">
                 Whether you are new to faith or have been walking with the Lord for years, you have a place here. Come as you are—we would love to meet you.
               </p>
-              <p className="text-royal font-medium mt-4">— Pastor John Mwangi</p>
+              <p className="text-royal font-medium mt-4">— Bishop Ndewere, Senior Pastor</p>
             </div>
           </div>
         </div>

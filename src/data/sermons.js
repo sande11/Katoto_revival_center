@@ -15,10 +15,10 @@ export const sermons = [
   {
     id: '1',
     title: 'The Fire of Revival',
-    speaker: 'Pastor John Mwangi',
+    speaker: 'Bishop Ndewere',
     date: '2025-02-16',
     series: 'Revival Fire',
-    thumbnail: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=225&fit=crop',
+    thumbnail: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=225&fit=crop',
     youtubeId: 'dQw4w9WgXcQ',
     notesUrl: '#',
     description: 'Understanding how revival fire transforms hearts and communities.',
@@ -26,7 +26,7 @@ export const sermons = [
   {
     id: '2',
     title: 'Faith That Moves Mountains',
-    speaker: 'Pastor John Mwangi',
+    speaker: 'Bishop Ndewere',
     date: '2025-02-09',
     series: 'Walking in Faith',
     thumbnail: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=400&h=225&fit=crop',
@@ -48,7 +48,7 @@ export const sermons = [
   {
     id: '4',
     title: 'Living as Kingdom Citizens',
-    speaker: 'Pastor John Mwangi',
+    speaker: 'Bishop Ndewere',
     date: '2025-01-26',
     series: 'Kingdom Living',
     thumbnail: 'https://images.unsplash.com/photo-1507680434567-5739c80be1aa?w=400&h=225&fit=crop',
@@ -70,7 +70,7 @@ export const sermons = [
   {
     id: '6',
     title: 'Grace for the Journey',
-    speaker: 'Pastor John Mwangi',
+    speaker: 'Bishop Ndewere',
     date: '2025-01-12',
     series: 'Grace & Mercy',
     thumbnail: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=225&fit=crop',

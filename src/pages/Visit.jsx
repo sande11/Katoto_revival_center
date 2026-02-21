@@ -76,14 +76,14 @@ export default function Visit() {
                 We have no strict dress code. Come in what is comfortable for you. Parking is available on-site; our team will help you find a spot.
               </p>
               <p className="text-charcoal">
-                <strong>Address:</strong> Katoto, Nairobi, Kenya. Use the map below for directions.
+                <strong>Address:</strong> Katoto, Mzuzu, Malawi. Use the map below for directions.
               </p>
             </section>
 
             <section className="rounded-xl overflow-hidden border border-gray-200 aspect-video bg-gray-200">
               <iframe
                 title="Church location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.814239762386!2d36.8214!3d-1.2921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwMTczMTEuNiJTIDM2wrA0OTMxNy4wIkU!5e0!3m2!1sen!2ske!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31430.0!2d34.0207!3d-11.4659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19b7c46b1b1b1b1b%3A0x0!2sKatoto%2C+Mzuzu%2C+Malawi!5e0!3m2!1sen!2smw!4v1740000000000"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

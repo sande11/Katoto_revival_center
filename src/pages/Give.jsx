@@ -66,7 +66,7 @@ export default function Give() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="give-amount" className="block text-sm font-medium text-charcoal mb-1">Amount (KES)</label>
+                    <label htmlFor="give-amount" className="block text-sm font-medium text-charcoal mb-1">Amount (MK)</label>
                     <input
                       id="give-amount"
                       type="number"
