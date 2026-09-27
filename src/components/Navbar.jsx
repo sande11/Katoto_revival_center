@@ -46,22 +46,22 @@ export default function Navbar() {
       {/* <div className="h-1 w-full" style={{ backgroundColor: '#C5A059' }} /> */}
 
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between gap-3 h-16">
+        <div className="flex items-center justify-between gap-3 h-16 sm:h-20">
           {/* Logo — name stacks onto two lines on phones and hides below 360px so the CTA always fits */}
           <Link
             to="/"
-            className="flex items-center gap-2 min-w-0 group"
+            className="flex items-center gap-2 sm:gap-3 min-w-0 group"
             aria-label="Katoto Revival Center — Home"
           >
             <img
               src={logoKatoto}
               alt=""
-              className="w-9 h-9 xs:w-10 xs:h-10 rounded-full object-cover flex-shrink-0 border-2"
+              className="w-12 h-12 sm:w-14 sm:h-14 xl:w-16 xl:h-16 rounded-full object-cover flex-shrink-0 border-2"
               style={{ borderColor: '#C5A059' }}
             />
             <span
-              className="hidden xs:block font-serif font-semibold leading-tight text-sm sm:text-[1.1rem] sm:whitespace-nowrap"
-              style={{ color: '#ffffff' }}
+              className="hidden xs:block font-serif font-bold leading-tight tracking-wide text-[0.95rem] sm:text-xl sm:whitespace-nowrap"
+              style={{ color: '#C5A059', textShadow: '0 1px 2px rgba(0,0,0,0.35)' }}
             >
               Katoto <br className="sm:hidden" />Revival Center
             </span>
@@ -130,7 +130,7 @@ export default function Navbar() {
               style={{ borderTop: '1px solid rgba(255,255,255,0.15)' }}
             >
               {/* Scrolls on its own when the list is taller than a short/landscape screen */}
-              <div className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain">
+              <div className="max-h-[calc(100dvh-4rem)] sm:max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain">
                 <div className="py-3 grid grid-cols-1 sm:grid-cols-2 gap-1">
                   {navItems.map(({ path, labelKey, end }) => (
                     <NavLink

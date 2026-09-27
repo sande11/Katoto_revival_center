@@ -51,9 +51,9 @@ export default function Visit() {
               <h3 className="font-serif text-xl text-royal mb-2">Service Times</h3>
               <ul className="divide-y divide-gray-100 text-charcoal">
                 {serviceTimes.map(({ name, time }) => (
-                  <li key={name} className="flex flex-col xs:flex-row xs:items-baseline xs:justify-between gap-x-4 py-3">
+                  <li key={name} className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-x-4 gap-y-0.5 py-3">
                     <strong className="font-semibold">{name}</strong>
-                    <span className="text-charcoal/80 text-sm xs:text-base xs:text-right">{time}</span>
+                    <span className="text-charcoal/80 text-sm sm:text-base sm:text-right">{time}</span>
                   </li>
                 ))}
               </ul>

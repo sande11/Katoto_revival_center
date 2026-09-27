@@ -46,7 +46,8 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
-            Welcome To Our Church
+            Welcome to
+            <span className="block text-gold">Katoto Revival Center</span>
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl text-white mb-8 max-w-2xl drop-shadow-md"
@@ -54,7 +55,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.5 }}
           >
-            Katoto Revival Center is a place where you can experience the power of revival. We are a family of believers committed to the Word, worship, and the work of the Holy Spirit.
+            A place where you can experience the power of revival. We are a family of believers committed to the Word, worship, and the work of the Holy Spirit.
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-4"

@@ -34,7 +34,7 @@ export default function Lightbox({ images, index, onClose, onChange }) {
     <AnimatePresence>
       {image && (
         <motion.div
-          className="fixed inset-0 z-50 bg-black/95 flex flex-col"
+          className="fixed inset-0 z-50 bg-black flex flex-col"
           role="dialog"
           aria-modal="true"
           aria-label={image.title}
