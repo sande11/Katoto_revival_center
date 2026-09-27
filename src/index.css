@@ -17,11 +17,41 @@
   }
 }
 
+@layer components {
+  /* Form fields: 16px text keeps iOS Safari from zooming in on focus */
+  .form-label {
+    @apply block text-sm font-medium text-charcoal mb-1;
+  }
+  .form-input {
+    @apply w-full border border-gray-300 rounded-lg px-4 py-3 text-base bg-white text-charcoal
+      focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition-colors;
+  }
+
+  /* Swipeable card row on phones, regular grid from md up (add md:grid-cols-* on the element) */
+  .snap-row {
+    @apply flex gap-4 overflow-x-auto snap-x snap-mandatory -mx-4 px-4 pt-1 pb-4 scroll-px-4
+      md:grid md:gap-6 md:overflow-visible md:mx-auto md:px-0 md:pt-0 md:pb-0;
+    scrollbar-width: none;
+  }
+  .snap-row::-webkit-scrollbar {
+    display: none;
+  }
+  .snap-row > * {
+    @apply snap-start shrink-0 w-[85%] sm:w-[60%] md:w-auto;
+  }
+}
+
 @layer utilities {
   .section-light {
     @apply bg-gray-50;
   }
   .section-white {
     @apply bg-white;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }

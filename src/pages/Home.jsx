@@ -25,7 +25,7 @@ export default function Home() {
 
       {/* Hero: deep blue overlay per Trust & Tradition */}
       <section
-        className="relative min-h-[70vh] md:min-h-[80vh] flex items-center justify-center bg-cover bg-center text-white"
+        className="relative min-h-[70vh] md:min-h-[80vh] flex items-center justify-center bg-cover bg-center text-white pt-12 pb-24 md:py-28"
         style={{
           backgroundImage: `linear-gradient(135deg, rgba(0, 35, 102, 0.85) 0%, rgba(0, 35, 102, 0.7) 100%), url(https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1920&h=1080&fit=crop)`,
         }}
@@ -95,19 +95,19 @@ export default function Home() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="md:col-span-3 p-6 md:p-8 flex flex-col justify-center">
-                <h2 className="font-serif text-2xl text-royal mb-2">Join the Sunday Live Stream</h2>
+              <div className="md:col-span-3 p-5 sm:p-6 md:p-8 flex flex-col justify-center">
+                <h2 className="font-serif text-xl sm:text-2xl text-royal mb-2">Join the Sunday Live Stream</h2>
                 <p className="text-charcoal/80 mb-4">Every Sunday at 9:00 AM. Join us in person or online.</p>
-                <div className="flex flex-wrap gap-3">
+                <div className="grid grid-cols-1 xs:grid-cols-2 sm:flex gap-3">
                   <Link
                     to="/visit"
-                    className="inline-block bg-gold text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-gold-500 transition-colors"
+                    className="inline-block bg-gold text-white font-semibold text-sm sm:text-base px-3 sm:px-5 py-3 sm:py-2.5 rounded-lg hover:bg-gold-500 transition-colors text-center"
                   >
                     Join Now
                   </Link>
                   <Link
                     to="/sermons"
-                    className="inline-block border-2 border-royal text-royal font-semibold px-5 py-2.5 rounded-lg hover:bg-royal/5 transition-colors"
+                    className="inline-block border-2 border-royal text-royal font-semibold text-sm sm:text-base px-3 sm:px-5 py-2.5 sm:py-2 rounded-lg hover:bg-royal/5 transition-colors text-center whitespace-nowrap"
                   >
                     Past Messages
                   </Link>
@@ -119,9 +119,9 @@ export default function Home() {
       </section>
 
       {/* Our Services: two-column layout */}
-      <section className="py-16 md:py-20 section-white">
+      <section className="py-12 md:py-20 section-white">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -145,7 +145,7 @@ export default function Home() {
               </Link>
             </motion.div>
             <motion.div
-              className="grid grid-cols-2 gap-4"
+              className="grid grid-cols-2 gap-3 sm:gap-4"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -154,12 +154,12 @@ export default function Home() {
                 <Link
                   key={m.id}
                   to="/ministries"
-                  className="bg-gray-50 p-4 rounded-lg border border-gray-100 hover:border-gold/30 hover:shadow-md transition-all group"
+                  className="bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-100 hover:border-gold/30 hover:shadow-md active:bg-gray-100 transition-all group"
                 >
                   <span className="text-2xl mb-2 block" aria-hidden="true">
                     {m.icon === 'youth' ? '👥' : m.icon === 'women' ? '💜' : m.icon === 'men' ? '👔' : m.icon === 'children' ? '👶' : m.icon === 'prayer' ? '🙏' : '✝️'}
                   </span>
-                  <h3 className="font-serif text-royal font-semibold group-hover:text-gold transition-colors">{m.name}</h3>
+                  <h3 className="font-serif text-[0.95rem] sm:text-base leading-snug text-royal font-semibold group-hover:text-gold transition-colors">{m.name}</h3>
                   <p className="text-charcoal/70 text-sm mt-1 line-clamp-2">{m.description}</p>
                 </Link>
               ))}
@@ -169,11 +169,11 @@ export default function Home() {
       </section>
 
       {/* Welcome from Pastor */}
-      <section className="py-16 section-light">
+      <section className="py-12 md:py-16 section-light">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-8 items-center">
+          <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8 items-center text-center md:text-left">
             <motion.div
-              className="flex-shrink-0 w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden bg-gray-300 shadow-lg"
+              className="flex-shrink-0 w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 rounded-full overflow-hidden bg-gray-300 shadow-lg"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -182,6 +182,7 @@ export default function Home() {
                 src={bishopNdewere}
                 alt="Bishop Ndewere"
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             </motion.div>
             <div>
@@ -196,7 +197,7 @@ export default function Home() {
       </section>
 
       {/* Mission statement */}
-      <section className="py-16 section-white">
+      <section className="py-12 md:py-16 section-white">
         <div className="container mx-auto px-4 text-center">
           <motion.blockquote
             className="font-serif text-xl md:text-2xl lg:text-3xl text-royal max-w-4xl mx-auto italic"
@@ -209,10 +210,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Current Series / Featured sermons - card grid */}
-      <section className="py-16 section-light">
+      {/* Current Series / Featured sermons - swipeable row on phones, card grid from md */}
+      <section className="py-12 md:py-16 section-light">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
             <p className="text-sm uppercase tracking-wider text-royal font-medium mb-2">Current Series</p>
             <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl font-semibold text-royal mb-3">
               Hope for Tomorrow
@@ -221,7 +222,7 @@ export default function Home() {
               Messages to encourage and equip you in faith.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="snap-row md:grid-cols-3 max-w-5xl">
             {sermons.slice(0, 3).map((s) => (
               <motion.article
                 key={s.id}
@@ -231,49 +232,49 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <div className="aspect-video bg-gray-200">
-                  <img src={s.thumbnail} alt={s.title} className="w-full h-full object-cover" />
+                  <img src={s.thumbnail} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div className="p-4">
                   <p className="text-gold font-medium text-xs uppercase tracking-wide mb-1">{s.series} | Past Messages</p>
                   <h3 className="font-serif text-lg text-royal mb-1">{s.title}</h3>
-                  <p className="text-charcoal/70 text-sm mb-2">Posted on {new Date(s.date).toLocaleDateString('en-US')}</p>
-                  <Link to="/sermons" className="text-royal font-medium text-sm hover:text-gold transition-colors">
+                  <p className="text-charcoal/70 text-sm">Posted on {new Date(s.date).toLocaleDateString('en-US')}</p>
+                  <Link to="/sermons" className="inline-block py-2 text-royal font-medium text-sm hover:text-gold transition-colors">
                     Listen to the message →
                   </Link>
                 </div>
               </motion.article>
             ))}
           </div>
-          <div className="text-center mt-8">
-            <Link to="/sermons" className="text-royal font-medium hover:text-gold transition-colors">
-              View all sermons
+          <div className="text-center mt-6 md:mt-8">
+            <Link to="/sermons" className="inline-block px-4 py-2.5 text-royal font-medium hover:text-gold transition-colors">
+              View all sermons →
             </Link>
           </div>
         </div>
       </section>
 
       {/* Upcoming events */}
-      <section className="py-16 section-white">
+      <section className="py-12 md:py-16 section-white">
         <div className="container mx-auto px-4">
           <SectionHeader title="Upcoming Events" subtitle="Join us for these gatherings" />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="snap-row md:grid-cols-2 lg:grid-cols-3">
             {upcomingEvents.slice(0, 3).map((event) => (
               <EventCard key={event.id} event={event} />
             ))}
           </div>
-          <div className="text-center mt-8">
-            <Link to="/events" className="text-royal font-medium hover:text-gold transition-colors">
-              View all events
+          <div className="text-center mt-6 md:mt-8">
+            <Link to="/events" className="inline-block px-4 py-2.5 text-royal font-medium hover:text-gold transition-colors">
+              View all events →
             </Link>
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 section-light">
+      <section className="py-12 md:py-16 section-light">
         <div className="container mx-auto px-4">
           <SectionHeader title="What People Say" subtitle="Stories from our congregation" />
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="snap-row md:grid-cols-3 md:gap-8 max-w-5xl">
             {testimonials.map((item) => (
               <motion.blockquote
                 key={item.id}

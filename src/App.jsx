@@ -20,7 +20,8 @@ function App() {
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
-        <div className="min-h-screen flex flex-col">
+        {/* overflow-x-clip stops slide-in animations from causing sideways scroll on phones (clip keeps the sticky navbar working) */}
+        <div className="min-h-screen flex flex-col overflow-x-clip">
           <Navbar />
           <main className="flex-1">
             <Routes>
