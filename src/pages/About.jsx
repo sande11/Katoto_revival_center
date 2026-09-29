@@ -94,7 +94,14 @@ export default function About() {
                 viewport={{ once: true }}
               >
                 <div className="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full overflow-hidden bg-gray-200 mb-4">
-                  <img src={member.image} alt={member.name} className="w-full h-full object-cover" loading="lazy" />
+                  {member.image ? (
+                    <img src={member.image} alt={member.name} className="w-full h-full object-cover" loading="lazy" />
+                  ) : (
+                    // No photo yet: show initials (skipping titles like "Elder" or "Sis.")
+                    <span className="w-full h-full flex items-center justify-center bg-royal text-gold font-serif text-4xl" aria-hidden="true">
+                      {member.name.split(' ').slice(-2).map((word) => word[0]).join('')}
+                    </span>
+                  )}
                 </div>
                 <h3 className="font-serif text-lg text-royal">{member.name}</h3>
                 <p className="text-gold font-medium text-sm mb-2">{member.title}</p>

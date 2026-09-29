@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import bishopNdewere from '../assets/bishop-ndewere.jpg';
+import sundayCongregation from '../assets/miscellenious/556285033_1134227065425775_4024409936295275959_n.jpg';
 import SectionHeader from '../components/SectionHeader';
 import EventCard from '../components/EventCard';
 import CTABanner from '../components/CTABanner';
@@ -98,8 +99,8 @@ export default function Home() {
             <div className="grid md:grid-cols-5 gap-0">
               <div className="md:col-span-2 aspect-video md:aspect-auto md:min-h-[200px] bg-gray-200">
                 <img
-                  src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&h=400&fit=crop"
-                  alt="Worship"
+                  src={sundayCongregation}
+                  alt="Congregation worshipping at a Sunday service"
                   className="w-full h-full object-cover"
                 />
               </div>

@@ -1,6 +1,14 @@
 /**
  * Ministry list for Ministries page. Update with real leaders and schedules.
  */
+import youthMinistry from '../assets/youth-ministry/556648250_1134197515428730_3899871776711072794_n.jpg';
+import womensFellowship from '../assets/womens-ministry/509719573_1058574962990986_7921665953125148302_n.jpg';
+import mensFellowship from '../assets/mens-ministry/555683360_1134197908762024_2321877765068401350_n.jpg';
+import childrensMinistry from '../assets/children-ministry/682593563_1297017799146700_6106475829369747874_n.jpg';
+import prayerMinistry from '../assets/miscellenious/556652987_1134227028759112_8645909850777201291_n.jpg';
+import outreachCommunity from '../assets/miscellenious/557823259_1134197408762074_6849635619622513725_n.jpg';
+import worshipTeam from '../assets/praise-team/800797079_2653013788501839_935930877774437652_n.jpeg';
+
 export const ministries = [
   {
     id: '1',
@@ -10,7 +18,7 @@ export const ministries = [
     leader: 'Bro. David Kimani',
     schedule: 'Fridays, 6:00 PM',
     icon: 'youth',
-    image: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&h=400&fit=crop',
+    image: youthMinistry,
   },
   {
     id: '2',
@@ -20,7 +28,7 @@ export const ministries = [
     leader: 'Sis. Grace Wanjiru',
     schedule: 'First Saturday of each month, 8:00 AM',
     icon: 'women',
-    image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&h=400&fit=crop',
+    image: womensFellowship,
   },
   {
     id: '3',
@@ -30,7 +38,7 @@ export const ministries = [
     leader: 'Elder James Otieno',
     schedule: 'Second Saturday of each month, 7:00 AM',
     icon: 'men',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop',
+    image: mensFellowship,
   },
   {
     id: '4',
@@ -40,7 +48,7 @@ export const ministries = [
     leader: 'Sis. Mary Njeri',
     schedule: 'Sundays during main service',
     icon: 'children',
-    image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=400&fit=crop',
+    image: childrensMinistry,
   },
   {
     id: '5',
@@ -50,7 +58,7 @@ export const ministries = [
     leader: 'Elder Grace Wanjiru',
     schedule: 'Wednesdays, 5:30 PM & Sundays before service',
     icon: 'prayer',
-    image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&h=400&fit=crop',
+    image: prayerMinistry,
   },
   {
     id: '6',
@@ -60,7 +68,7 @@ export const ministries = [
     leader: 'Bro. Peter Mburu',
     schedule: 'As scheduled (monthly outreaches)',
     icon: 'outreach',
-    image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&h=400&fit=crop',
+    image: outreachCommunity,
   },
   {
     id: '7',
@@ -70,6 +78,6 @@ export const ministries = [
     leader: 'Sis. Ruth Akinyi',
     schedule: 'Rehearsals: Saturdays 2:00 PM; Service: Sundays',
     icon: 'worship',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop',
+    image: worshipTeam,
   },
 ];
