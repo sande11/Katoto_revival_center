@@ -2,6 +2,13 @@
  * Sermon entries for Sermons page and featured sermon on Home.
  * Replace with real data or API later.
  */
+import bishopPreaching from '../assets/pastors/pastor_ndebere.jpeg';
+import praiseTeam from '../assets/praise-team/788034074_28220678387617820_3846632709932615591_n.jpeg';
+import handsRaised from '../assets/miscellenious/556652987_1134227028759112_8645909850777201291_n.jpg';
+import congregation from '../assets/miscellenious/558085996_1134197485428733_8531590517096688607_n.jpg';
+import prayerTime from '../assets/mens-ministry/825273522_1106370072354742_8005794228508173963_n.jpeg';
+import worshipService from '../assets/828228303_2210016379543700_6352385358198203417_n.jpeg';
+
 export const sermonSeries = [
   'Revival Fire',
   'Walking in Faith',
@@ -18,7 +25,7 @@ export const sermons = [
     speaker: 'Bishop Ndewere',
     date: '2025-02-16',
     series: 'Revival Fire',
-    thumbnail: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=225&fit=crop',
+    thumbnail: bishopPreaching,
     youtubeId: 'dQw4w9WgXcQ',
     notesUrl: '#',
     description: 'Understanding how revival fire transforms hearts and communities.',
@@ -29,7 +36,7 @@ export const sermons = [
     speaker: 'Bishop Ndewere',
     date: '2025-02-09',
     series: 'Walking in Faith',
-    thumbnail: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=400&h=225&fit=crop',
+    thumbnail: praiseTeam,
     youtubeId: 'dQw4w9WgXcQ',
     notesUrl: '#',
     description: 'Building unshakeable faith in the promises of God.',
@@ -40,7 +47,7 @@ export const sermons = [
     speaker: 'Elder Grace Wanjiru',
     date: '2025-02-02',
     series: 'The Holy Spirit',
-    thumbnail: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=225&fit=crop',
+    thumbnail: handsRaised,
     youtubeId: 'dQw4w9WgXcQ',
     notesUrl: '#',
     description: 'Experiencing the presence and power of the Holy Spirit.',
@@ -51,7 +58,7 @@ export const sermons = [
     speaker: 'Bishop Ndewere',
     date: '2025-01-26',
     series: 'Kingdom Living',
-    thumbnail: 'https://images.unsplash.com/photo-1507680434567-5739c80be1aa?w=400&h=225&fit=crop',
+    thumbnail: congregation,
     youtubeId: 'dQw4w9WgXcQ',
     notesUrl: '#',
     description: 'Practical steps to align our lives with God\'s kingdom.',
@@ -62,7 +69,7 @@ export const sermons = [
     speaker: 'Elder Grace Wanjiru',
     date: '2025-01-19',
     series: 'Prayer & Fasting',
-    thumbnail: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=225&fit=crop',
+    thumbnail: prayerTime,
     youtubeId: 'dQw4w9WgXcQ',
     notesUrl: '#',
     description: 'The power of persistent prayer and fasting.',
@@ -73,7 +80,7 @@ export const sermons = [
     speaker: 'Bishop Ndewere',
     date: '2025-01-12',
     series: 'Grace & Mercy',
-    thumbnail: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=225&fit=crop',
+    thumbnail: worshipService,
     youtubeId: 'dQw4w9WgXcQ',
     notesUrl: '#',
     description: 'Receiving and extending God\'s grace every day.',

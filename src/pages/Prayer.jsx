@@ -61,34 +61,36 @@ export default function Prayer() {
             subtitle="We believe in the power of prayer. Share your request and we will stand with you."
           />
 
-          <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 max-w-5xl mx-auto">
+            <div className="bg-white p-5 sm:p-6 rounded-xl shadow-md border border-gray-100">
               <h3 className="font-serif text-xl text-royal mb-4">Submit a Prayer Request</h3>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="prayer-name" className="block text-sm font-medium text-charcoal mb-1">Name (optional)</label>
+                  <label htmlFor="prayer-name" className="form-label">Name (optional)</label>
                   <input
                     id="prayer-name"
                     name="name"
                     type="text"
+                    autoComplete="name"
                     value={form.name}
                     onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                    className="form-input"
                   />
                 </div>
                 <div>
-                  <label htmlFor="prayer-email" className="block text-sm font-medium text-charcoal mb-1">Email (optional)</label>
+                  <label htmlFor="prayer-email" className="form-label">Email (optional)</label>
                   <input
                     id="prayer-email"
                     name="email"
                     type="email"
+                    autoComplete="email"
                     value={form.email}
                     onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                    className="form-input"
                   />
                 </div>
                 <div>
-                  <label htmlFor="prayer-request" className="block text-sm font-medium text-charcoal mb-1">Prayer request</label>
+                  <label htmlFor="prayer-request" className="form-label">Prayer request</label>
                   <textarea
                     id="prayer-request"
                     name="request"
@@ -96,19 +98,22 @@ export default function Prayer() {
                     value={form.request}
                     onChange={handleChange}
                     required
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                    className="form-input"
                     placeholder="Share your prayer need..."
                   />
                 </div>
-                <label className="flex items-center gap-2 cursor-pointer">
+                <label className="flex items-start gap-3 py-1 cursor-pointer">
                   <input
                     type="checkbox"
                     name="sharePublic"
                     checked={form.sharePublic}
                     onChange={handleChange}
-                    className="rounded border-gray-300"
+                    className="mt-0.5 w-5 h-5 flex-shrink-0 rounded border-gray-300 accent-royal"
                   />
-                  <span className="text-sm text-charcoal">Share with congregation (prayer wall) / Keep private</span>
+                  <span className="text-sm text-charcoal">
+                    Share on the prayer wall so the congregation can pray with me
+                    <span className="block text-charcoal/60">Leave unchecked to keep your request private.</span>
+                  </span>
                 </label>
                 <button
                   type="submit"
@@ -117,8 +122,10 @@ export default function Prayer() {
                 >
                   {status === 'sending' ? 'Sending…' : t('cta.submit')}
                 </button>
-                {status === 'success' && <p className="text-green-600 text-sm">Thank you. We will pray with you.</p>}
-                {status === 'error' && <p className="text-red-600 text-sm">Something went wrong. You can email your request to us.</p>}
+                <div aria-live="polite">
+                  {status === 'success' && <p className="text-green-600 text-sm">Thank you. We will pray with you.</p>}
+                  {status === 'error' && <p className="text-red-600 text-sm">Something went wrong. You can email your request to us.</p>}
+                </div>
               </form>
             </div>
 
@@ -145,7 +152,7 @@ export default function Prayer() {
           </div>
 
           <motion.blockquote
-            className="text-center max-w-2xl mx-auto mt-16 text-charcoal italic border-l-4 border-gold pl-6 py-2"
+            className="max-w-2xl mx-auto mt-12 md:mt-16 text-charcoal italic border-l-4 border-gold pl-4 sm:pl-6 py-2"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SectionHeader from '../components/SectionHeader';
 import EventCard from '../components/EventCard';
@@ -19,7 +20,7 @@ export default function Events() {
       <section className="py-12 md:py-16 section-light">
         <div className="container mx-auto px-4">
           <SectionHeader title="Upcoming Events" subtitle="Join us for these gatherings" />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {upcomingEvents.map((event) => (
               <EventCard
                 key={event.id}
@@ -31,10 +32,10 @@ export default function Events() {
         </div>
       </section>
 
-      <section className="py-16 section-white">
+      <section className="py-12 md:py-16 section-white">
         <div className="container mx-auto px-4">
           <SectionHeader title="Past Events" subtitle="Photos and memories" />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {pastEvents.map((event) => (
               <motion.button
                 key={event.id}
@@ -45,9 +46,9 @@ export default function Events() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
               >
-                <img src={event.image} alt={event.title} className="w-full h-full object-cover hover:scale-105 transition-transform" />
-                <div className="absolute inset-0 flex items-end p-3 bg-gradient-to-t from-black/70 to-transparent">
-                  <span className="text-white text-sm font-medium">{event.title}</span>
+                <img src={event.image} alt={event.title} className="w-full h-full object-cover hover:scale-105 transition-transform" loading="lazy" />
+                <div className="absolute inset-0 flex items-end p-3 bg-gradient-to-t from-black/70 to-transparent text-left">
+                  <span className="text-white text-sm font-medium leading-snug">{event.title}</span>
                 </div>
               </motion.button>
             ))}
@@ -78,12 +79,12 @@ export default function Events() {
                 </p>
                 <p className="text-charcoal mt-2">{selectedEvent.description}</p>
                 {selectedEvent.rsvpLink && (
-                  <a
-                    href={selectedEvent.rsvpLink}
-                    className="inline-block mt-4 bg-gold text-white font-semibold px-4 py-2 rounded-lg hover:bg-gold-500"
+                  <Link
+                    to={selectedEvent.rsvpLink}
+                    className="block sm:inline-block text-center mt-4 bg-gold text-white font-semibold px-6 py-3 rounded-lg hover:bg-gold-500 transition-colors"
                   >
                     RSVP
-                  </a>
+                  </Link>
                 )}
               </div>
             )}

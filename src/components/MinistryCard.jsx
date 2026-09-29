@@ -27,7 +27,7 @@ export default function MinistryCard({ ministry }) {
     >
       {image && (
         <div className="aspect-video overflow-hidden bg-gray-200">
-          <img src={image} alt={name} className="w-full h-full object-cover" />
+          <img src={image} alt={name} className="w-full h-full object-cover" loading="lazy" />
         </div>
       )}
       <div className="p-5 flex-1 flex flex-col">

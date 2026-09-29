@@ -17,7 +17,7 @@ export default function Ministries() {
             title="Our Ministries"
             subtitle="There is a place for everyone to belong and serve"
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 max-w-6xl mx-auto">
             {ministries.map((ministry) => (
               <MinistryCard key={ministry.id} ministry={ministry} />
             ))}

@@ -14,7 +14,7 @@ export default function CTABanner({ title, subtitle, buttonText, to = '/visit', 
       transition={{ duration: 0.5 }}
     >
       <div className="container mx-auto px-4 text-center">
-        <h2 className="font-serif text-2xl md:text-3xl font-semibold mb-2">{title}</h2>
+        <h2 className="font-serif text-2xl md:text-3xl font-semibold text-white mb-2">{title}</h2>
         {subtitle && <p className="text-white/90 mb-6 max-w-xl mx-auto">{subtitle}</p>}
         <Link
           to={to}

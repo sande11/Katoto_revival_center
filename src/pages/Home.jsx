@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import bishopNdewere from '../assets/bishop-ndewere.jpg';
+import sundayCongregation from '../assets/miscellenious/556285033_1134227065425775_4024409936295275959_n.jpg';
 import SectionHeader from '../components/SectionHeader';
 import EventCard from '../components/EventCard';
 import CTABanner from '../components/CTABanner';
@@ -12,6 +13,10 @@ import { testimonials } from '../data/testimonials';
 import { ministries } from '../data/ministries';
 
 const featuredSermon = sermons[0];
+
+// Phones get a smaller portrait crop of the hero photo to save mobile data
+const heroOverlay = 'linear-gradient(135deg, rgba(0, 35, 102, 0.85) 0%, rgba(0, 35, 102, 0.7) 100%)';
+const heroPhoto = 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -24,15 +29,17 @@ export default function Home() {
       </Helmet>
 
       {/* Hero: deep blue overlay per Trust & Tradition */}
+      {/* On phones the hero sizes to its content instead of a fixed share of the screen */}
       <section
-        className="relative min-h-[70vh] md:min-h-[80vh] flex items-center justify-center bg-cover bg-center text-white"
+        className="relative sm:min-h-[70vh] md:min-h-[80vh] flex items-center justify-center bg-cover bg-center text-white pt-10 pb-20 sm:pt-12 sm:pb-24 md:py-28 bg-[image:var(--hero-bg-sm)] md:bg-[image:var(--hero-bg-lg)]"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(0, 35, 102, 0.85) 0%, rgba(0, 35, 102, 0.7) 100%), url(https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1920&h=1080&fit=crop)`,
+          '--hero-bg-sm': `${heroOverlay}, url(${heroPhoto}?w=800&h=1000&fit=crop&q=70)`,
+          '--hero-bg-lg': `${heroOverlay}, url(${heroPhoto}?w=1920&h=1080&fit=crop)`,
         }}
       >
         <div className="container mx-auto px-4 text-left max-w-4xl">
           <motion.p
-            className="text-sm md:text-base uppercase tracking-wider text-white mb-2 drop-shadow-md"
+            className="text-xs sm:text-sm md:text-base uppercase tracking-[0.15em] sm:tracking-wider text-white/90 mb-2 sm:mb-3 drop-shadow-md"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
@@ -40,37 +47,39 @@ export default function Home() {
             Church Love, Faith Love
           </motion.p>
           <motion.h1
-            className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white drop-shadow-lg"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight font-bold mb-3 sm:mb-4 text-white drop-shadow-lg"
             style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.4)' }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
-            Welcome To Our Church
+            Welcome to
+            <span className="block text-gold">Katoto Revival Center</span>
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl text-white mb-8 max-w-2xl drop-shadow-md"
+            className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 mb-6 sm:mb-8 max-w-2xl drop-shadow-md"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.5 }}
           >
-            Katoto Revival Center is a place where you can experience the power of revival. We are a family of believers committed to the Word, worship, and the work of the Holy Spirit.
+            A place where you can experience the power of revival. We are a family of believers committed to the Word, worship, and the work of the Holy Spirit.
           </motion.p>
           <motion.div
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
           >
+            {/* py-3 vs py-2.5 + border-2 keeps both buttons the same height (44px phones, 48px sm+) */}
             <Link
               to="/visit"
-              className="inline-block bg-gold text-white font-semibold px-8 py-3 rounded-lg hover:bg-gold-500 transition-colors text-center"
+              className="inline-block bg-gold text-white font-semibold text-sm sm:text-base px-6 sm:px-8 py-3 rounded-lg hover:bg-gold-500 transition-colors text-center"
             >
               {t('cta.joinSunday')}
             </Link>
             <Link
               to="/sermons"
-              className="inline-block bg-white/10 backdrop-blur border-2 border-white font-semibold px-8 py-3 rounded-lg hover:bg-white/20 transition-colors text-center"
+              className="inline-block bg-white/10 backdrop-blur border-2 border-white font-semibold text-sm sm:text-base px-6 sm:px-8 py-2.5 rounded-lg hover:bg-white/20 transition-colors text-center"
             >
               {t('cta.watchSermon')}
             </Link>
@@ -90,24 +99,24 @@ export default function Home() {
             <div className="grid md:grid-cols-5 gap-0">
               <div className="md:col-span-2 aspect-video md:aspect-auto md:min-h-[200px] bg-gray-200">
                 <img
-                  src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&h=400&fit=crop"
-                  alt="Worship"
+                  src={sundayCongregation}
+                  alt="Congregation worshipping at a Sunday service"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="md:col-span-3 p-6 md:p-8 flex flex-col justify-center">
-                <h2 className="font-serif text-2xl text-royal mb-2">Join the Sunday Live Stream</h2>
+              <div className="md:col-span-3 p-5 sm:p-6 md:p-8 flex flex-col justify-center">
+                <h2 className="font-serif text-xl sm:text-2xl text-royal mb-2">Join the Sunday Live Stream</h2>
                 <p className="text-charcoal/80 mb-4">Every Sunday at 9:00 AM. Join us in person or online.</p>
-                <div className="flex flex-wrap gap-3">
+                <div className="grid grid-cols-1 xs:grid-cols-2 sm:flex gap-3">
                   <Link
                     to="/visit"
-                    className="inline-block bg-gold text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-gold-500 transition-colors"
+                    className="inline-block bg-gold text-white font-semibold text-sm sm:text-base px-3 sm:px-5 py-3 sm:py-2.5 rounded-lg hover:bg-gold-500 transition-colors text-center"
                   >
                     Join Now
                   </Link>
                   <Link
                     to="/sermons"
-                    className="inline-block border-2 border-royal text-royal font-semibold px-5 py-2.5 rounded-lg hover:bg-royal/5 transition-colors"
+                    className="inline-block border-2 border-royal text-royal font-semibold text-sm sm:text-base px-3 sm:px-5 py-2.5 sm:py-2 rounded-lg hover:bg-royal/5 transition-colors text-center whitespace-nowrap"
                   >
                     Past Messages
                   </Link>
@@ -119,9 +128,9 @@ export default function Home() {
       </section>
 
       {/* Our Services: two-column layout */}
-      <section className="py-16 md:py-20 section-white">
+      <section className="py-12 md:py-20 section-white">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -145,7 +154,7 @@ export default function Home() {
               </Link>
             </motion.div>
             <motion.div
-              className="grid grid-cols-2 gap-4"
+              className="grid grid-cols-2 gap-3 sm:gap-4"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -154,12 +163,12 @@ export default function Home() {
                 <Link
                   key={m.id}
                   to="/ministries"
-                  className="bg-gray-50 p-4 rounded-lg border border-gray-100 hover:border-gold/30 hover:shadow-md transition-all group"
+                  className="bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-100 hover:border-gold/30 hover:shadow-md active:bg-gray-100 transition-all group"
                 >
                   <span className="text-2xl mb-2 block" aria-hidden="true">
                     {m.icon === 'youth' ? '👥' : m.icon === 'women' ? '💜' : m.icon === 'men' ? '👔' : m.icon === 'children' ? '👶' : m.icon === 'prayer' ? '🙏' : '✝️'}
                   </span>
-                  <h3 className="font-serif text-royal font-semibold group-hover:text-gold transition-colors">{m.name}</h3>
+                  <h3 className="font-serif text-[0.95rem] sm:text-base leading-snug text-royal font-semibold group-hover:text-gold transition-colors">{m.name}</h3>
                   <p className="text-charcoal/70 text-sm mt-1 line-clamp-2">{m.description}</p>
                 </Link>
               ))}
@@ -169,11 +178,11 @@ export default function Home() {
       </section>
 
       {/* Welcome from Pastor */}
-      <section className="py-16 section-light">
+      <section className="py-12 md:py-16 section-light">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-8 items-center">
+          <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8 items-center text-center md:text-left">
             <motion.div
-              className="flex-shrink-0 w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden bg-gray-300 shadow-lg"
+              className="flex-shrink-0 w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 rounded-full overflow-hidden bg-gray-300 shadow-lg"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -182,6 +191,7 @@ export default function Home() {
                 src={bishopNdewere}
                 alt="Bishop Ndewere"
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             </motion.div>
             <div>
@@ -196,7 +206,7 @@ export default function Home() {
       </section>
 
       {/* Mission statement */}
-      <section className="py-16 section-white">
+      <section className="py-12 md:py-16 section-white">
         <div className="container mx-auto px-4 text-center">
           <motion.blockquote
             className="font-serif text-xl md:text-2xl lg:text-3xl text-royal max-w-4xl mx-auto italic"
@@ -209,10 +219,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Current Series / Featured sermons - card grid */}
-      <section className="py-16 section-light">
+      {/* Current Series / Featured sermons - swipeable row on phones, card grid from md */}
+      <section className="py-12 md:py-16 section-light">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
             <p className="text-sm uppercase tracking-wider text-royal font-medium mb-2">Current Series</p>
             <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl font-semibold text-royal mb-3">
               Hope for Tomorrow
@@ -221,7 +231,7 @@ export default function Home() {
               Messages to encourage and equip you in faith.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="snap-row md:grid-cols-3 max-w-5xl">
             {sermons.slice(0, 3).map((s) => (
               <motion.article
                 key={s.id}
@@ -231,49 +241,49 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <div className="aspect-video bg-gray-200">
-                  <img src={s.thumbnail} alt={s.title} className="w-full h-full object-cover" />
+                  <img src={s.thumbnail} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div className="p-4">
                   <p className="text-gold font-medium text-xs uppercase tracking-wide mb-1">{s.series} | Past Messages</p>
                   <h3 className="font-serif text-lg text-royal mb-1">{s.title}</h3>
-                  <p className="text-charcoal/70 text-sm mb-2">Posted on {new Date(s.date).toLocaleDateString('en-US')}</p>
-                  <Link to="/sermons" className="text-royal font-medium text-sm hover:text-gold transition-colors">
+                  <p className="text-charcoal/70 text-sm">Posted on {new Date(s.date).toLocaleDateString('en-US')}</p>
+                  <Link to="/sermons" className="inline-block py-2 text-royal font-medium text-sm hover:text-gold transition-colors">
                     Listen to the message →
                   </Link>
                 </div>
               </motion.article>
             ))}
           </div>
-          <div className="text-center mt-8">
-            <Link to="/sermons" className="text-royal font-medium hover:text-gold transition-colors">
-              View all sermons
+          <div className="text-center mt-6 md:mt-8">
+            <Link to="/sermons" className="inline-block px-4 py-2.5 text-royal font-medium hover:text-gold transition-colors">
+              View all sermons →
             </Link>
           </div>
         </div>
       </section>
 
       {/* Upcoming events */}
-      <section className="py-16 section-white">
+      <section className="py-12 md:py-16 section-white">
         <div className="container mx-auto px-4">
           <SectionHeader title="Upcoming Events" subtitle="Join us for these gatherings" />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="snap-row md:grid-cols-2 lg:grid-cols-3">
             {upcomingEvents.slice(0, 3).map((event) => (
               <EventCard key={event.id} event={event} />
             ))}
           </div>
-          <div className="text-center mt-8">
-            <Link to="/events" className="text-royal font-medium hover:text-gold transition-colors">
-              View all events
+          <div className="text-center mt-6 md:mt-8">
+            <Link to="/events" className="inline-block px-4 py-2.5 text-royal font-medium hover:text-gold transition-colors">
+              View all events →
             </Link>
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 section-light">
+      <section className="py-12 md:py-16 section-light">
         <div className="container mx-auto px-4">
           <SectionHeader title="What People Say" subtitle="Stories from our congregation" />
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="snap-row md:grid-cols-3 md:gap-8 max-w-5xl">
             {testimonials.map((item) => (
               <motion.blockquote
                 key={item.id}

@@ -2,12 +2,12 @@ import { useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import SectionHeader from '../components/SectionHeader';
-import Modal from '../components/Modal';
+import Lightbox from '../components/Lightbox';
 import { galleryImages, galleryCategories } from '../data/gallery';
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState('All');
-  const [lightboxImage, setLightboxImage] = useState(null);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const filtered = useMemo(() => {
     if (activeCategory === 'All') return galleryImages;
@@ -25,13 +25,15 @@ export default function Gallery() {
         <div className="container mx-auto px-4">
           <SectionHeader title="Gallery" subtitle="Moments from our church life" />
 
-          <div className="flex flex-wrap gap-2 justify-center mb-10">
+          {/* Single swipeable row of filters on phones, centered wrap from sm */}
+          <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 mb-6 sm:mb-10 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center">
             {galleryCategories.map((cat) => (
               <button
                 key={cat}
                 type="button"
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full font-medium transition-colors ${
+                aria-pressed={activeCategory === cat}
+                className={`flex-shrink-0 px-5 py-2.5 rounded-full font-medium transition-colors ${
                   activeCategory === cat
                     ? 'bg-royal text-white'
                     : 'bg-white text-charcoal border border-gray-300 hover:border-royal'
@@ -42,14 +44,15 @@ export default function Gallery() {
             ))}
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             <AnimatePresence mode="wait">
-              {filtered.map((img) => (
+              {filtered.map((img, i) => (
                 <motion.button
                   key={img.id}
                   type="button"
-                  className="aspect-square rounded-xl overflow-hidden bg-gray-200 focus:ring-2 focus:ring-gold"
-                  onClick={() => setLightboxImage(img)}
+                  className="aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-gray-200 focus:ring-2 focus:ring-gold"
+                  onClick={() => setLightboxIndex(i)}
+                  aria-label={`View ${img.title}`}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
@@ -59,6 +62,7 @@ export default function Gallery() {
                     src={img.src}
                     alt={img.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
                   />
                 </motion.button>
               ))}
@@ -67,20 +71,12 @@ export default function Gallery() {
         </div>
       </section>
 
-      <Modal
-        isOpen={!!lightboxImage}
-        onClose={() => setLightboxImage(null)}
-        title={lightboxImage?.title}
-        size="large"
-      >
-        {lightboxImage && (
-          <img
-            src={lightboxImage.src}
-            alt={lightboxImage.title}
-            className="w-full rounded-lg"
-          />
-        )}
-      </Modal>
+      <Lightbox
+        images={filtered}
+        index={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onChange={setLightboxIndex}
+      />
     </>
   );
 }

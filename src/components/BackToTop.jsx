@@ -24,7 +24,7 @@ export default function BackToTop() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-4 z-30 w-10 h-10 rounded-full shadow-lg flex items-center justify-center transition-colors"
+          className="fixed bottom-5 right-4 sm:bottom-6 z-30 w-11 h-11 rounded-full shadow-lg flex items-center justify-center transition-colors"
           style={{ backgroundColor: '#C5A059' }}
           onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#b08d47'; }}
           onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#C5A059'; }}

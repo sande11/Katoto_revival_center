@@ -1,10 +1,25 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  /* Only apply hover: styles on devices that can actually hover, so taps on phones don't leave sticky hover states */
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
+    /* xs sits first so it cascades before sm/md/lg; covers phones 360px and up */
+    screens: {
+      xs: '360px',
+      ...defaultTheme.screens,
+    },
+    /* Keep .container fluid below sm — otherwise xs would cap it at 360px on every phone */
+    container: {
+      screens: defaultTheme.screens,
+    },
     extend: {
       colors: {
         /* Trust & Tradition: 70% White, 20% Deep Royal Blue, 10% Muted Gold */

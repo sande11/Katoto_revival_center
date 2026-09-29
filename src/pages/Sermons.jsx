@@ -44,30 +44,34 @@ export default function Sermons() {
         <div className="container mx-auto px-4">
           <SectionHeader title="Sermons" subtitle="Messages to encourage and equip you" />
 
-          {/* Filters */}
-          <div className="flex flex-wrap gap-4 justify-center mb-10">
+          {/* Filters — side by side and full width on phones */}
+          <div className="grid grid-cols-2 gap-3 max-w-lg mx-auto mb-8 md:mb-10">
+            <label className="sr-only" htmlFor="filter-series">Filter by series</label>
             <select
+              id="filter-series"
               value={filterSeries}
               onChange={(e) => { setFilterSeries(e.target.value); setPage(0); }}
-              className="border border-gray-300 rounded-lg px-4 py-2 text-charcoal"
+              className="form-input px-3"
             >
               <option value="All">All series</option>
               {sermonSeries.map((s) => (
                 <option key={s} value={s}>{s}</option>
               ))}
             </select>
+            <label className="sr-only" htmlFor="filter-speaker">Filter by speaker</label>
             <select
+              id="filter-speaker"
               value={filterSpeaker}
               onChange={(e) => { setFilterSpeaker(e.target.value); setPage(0); }}
-              className="border border-gray-300 rounded-lg px-4 py-2 text-charcoal"
+              className="form-input px-3"
             >
               {speakers.map((s) => (
-                <option key={s} value={s}>{s}</option>
+                <option key={s} value={s}>{s === 'All' ? 'All speakers' : s}</option>
               ))}
             </select>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             <AnimatePresence mode="wait">
               {paginated.map((sermon) => (
                 <SermonCard key={sermon.id} sermon={sermon} onWatch={setSelectedSermon} />
@@ -76,23 +80,23 @@ export default function Sermons() {
           </div>
 
           {totalPages > 1 && (
-            <div className="flex justify-center gap-2 mt-8">
+            <div className="flex justify-center items-center gap-2 mt-8">
               <button
                 type="button"
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
                 disabled={page === 0}
-                className="px-4 py-2 rounded bg-gray-200 disabled:opacity-50"
+                className="px-4 py-2.5 rounded-lg bg-gray-200 disabled:opacity-50"
               >
                 Previous
               </button>
-              <span className="px-4 py-2 text-charcoal">
+              <span className="px-2 sm:px-4 py-2 text-charcoal text-sm sm:text-base whitespace-nowrap">
                 Page {page + 1} of {totalPages}
               </span>
               <button
                 type="button"
                 onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                 disabled={page >= totalPages - 1}
-                className="px-4 py-2 rounded bg-gray-200 disabled:opacity-50"
+                className="px-4 py-2.5 rounded-lg bg-gray-200 disabled:opacity-50"
               >
                 Next
               </button>
@@ -114,6 +118,7 @@ export default function Sermons() {
                 title={selectedSermon.title}
                 src={`https://www.youtube.com/embed/${selectedSermon.youtubeId}`}
                 className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
             </div>
@@ -124,7 +129,7 @@ export default function Sermons() {
             {selectedSermon.notesUrl && (
               <a
                 href={selectedSermon.notesUrl}
-                className="inline-block mt-4 text-gold font-medium hover:underline"
+                className="inline-block mt-2 py-2 text-gold font-medium hover:underline"
               >
                 Download sermon notes
               </a>
