@@ -13,6 +13,10 @@ import { ministries } from '../data/ministries';
 
 const featuredSermon = sermons[0];
 
+// Phones get a smaller portrait crop of the hero photo to save mobile data
+const heroOverlay = 'linear-gradient(135deg, rgba(0, 35, 102, 0.85) 0%, rgba(0, 35, 102, 0.7) 100%)';
+const heroPhoto = 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7';
+
 export default function Home() {
   const { t } = useTranslation();
 
@@ -24,15 +28,17 @@ export default function Home() {
       </Helmet>
 
       {/* Hero: deep blue overlay per Trust & Tradition */}
+      {/* On phones the hero sizes to its content instead of a fixed share of the screen */}
       <section
-        className="relative min-h-[70vh] md:min-h-[80vh] flex items-center justify-center bg-cover bg-center text-white pt-12 pb-24 md:py-28"
+        className="relative sm:min-h-[70vh] md:min-h-[80vh] flex items-center justify-center bg-cover bg-center text-white pt-10 pb-20 sm:pt-12 sm:pb-24 md:py-28 bg-[image:var(--hero-bg-sm)] md:bg-[image:var(--hero-bg-lg)]"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(0, 35, 102, 0.85) 0%, rgba(0, 35, 102, 0.7) 100%), url(https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1920&h=1080&fit=crop)`,
+          '--hero-bg-sm': `${heroOverlay}, url(${heroPhoto}?w=800&h=1000&fit=crop&q=70)`,
+          '--hero-bg-lg': `${heroOverlay}, url(${heroPhoto}?w=1920&h=1080&fit=crop)`,
         }}
       >
         <div className="container mx-auto px-4 text-left max-w-4xl">
           <motion.p
-            className="text-sm md:text-base uppercase tracking-wider text-white mb-2 drop-shadow-md"
+            className="text-xs sm:text-sm md:text-base uppercase tracking-[0.15em] sm:tracking-wider text-white/90 mb-2 sm:mb-3 drop-shadow-md"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
@@ -40,7 +46,7 @@ export default function Home() {
             Church Love, Faith Love
           </motion.p>
           <motion.h1
-            className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white drop-shadow-lg"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight font-bold mb-3 sm:mb-4 text-white drop-shadow-lg"
             style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.4)' }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -50,7 +56,7 @@ export default function Home() {
             <span className="block text-gold">Katoto Revival Center</span>
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl text-white mb-8 max-w-2xl drop-shadow-md"
+            className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 mb-6 sm:mb-8 max-w-2xl drop-shadow-md"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.5 }}
@@ -58,20 +64,21 @@ export default function Home() {
             A place where you can experience the power of revival. We are a family of believers committed to the Word, worship, and the work of the Holy Spirit.
           </motion.p>
           <motion.div
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
           >
+            {/* py-3 vs py-2.5 + border-2 keeps both buttons the same height (44px phones, 48px sm+) */}
             <Link
               to="/visit"
-              className="inline-block bg-gold text-white font-semibold px-8 py-3 rounded-lg hover:bg-gold-500 transition-colors text-center"
+              className="inline-block bg-gold text-white font-semibold text-sm sm:text-base px-6 sm:px-8 py-3 rounded-lg hover:bg-gold-500 transition-colors text-center"
             >
               {t('cta.joinSunday')}
             </Link>
             <Link
               to="/sermons"
-              className="inline-block bg-white/10 backdrop-blur border-2 border-white font-semibold px-8 py-3 rounded-lg hover:bg-white/20 transition-colors text-center"
+              className="inline-block bg-white/10 backdrop-blur border-2 border-white font-semibold text-sm sm:text-base px-6 sm:px-8 py-2.5 rounded-lg hover:bg-white/20 transition-colors text-center"
             >
               {t('cta.watchSermon')}
             </Link>
