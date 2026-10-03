@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import logoKatoto from '../assets/logo-katoto.jpg';
+import logoKatoto from '../assets/logo-ag.png';
 import { churchContact } from '../data/contact';
 
 const navItems = [

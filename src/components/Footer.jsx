@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logoKatoto from '../assets/logo-katoto.jpg';
+import logoKatoto from '../assets/logo-ag.png';
 import { churchContact } from '../data/contact';
 
 const quickLinks = [
