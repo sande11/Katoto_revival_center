@@ -1,18 +1,8 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import SectionHeader from '../components/SectionHeader';
-
-const givingTypes = [
-  { id: 'tithe', label: 'Tithe & Offering' },
-  { id: 'building', label: 'Building Fund' },
-  { id: 'missions', label: 'Missions' },
-  { id: 'other', label: 'Other' },
-];
-
-// One-tap amounts so phone users don't have to type
-const presetAmounts = [5000, 10000, 20000, 50000];
+import { bankAccounts, mobileMoney } from '../data/giving';
 
 const faqs = [
   { q: 'Why do we give?', a: 'We give in response to God\'s grace and to support the work of the church—ministry, facilities, outreach, and missions. Giving is an act of worship and trust.' },
@@ -21,17 +11,7 @@ const faqs = [
 ];
 
 export default function Give() {
-  const { t: T } = useTranslation();
-  const [amount, setAmount] = useState('');
-  const [givingType, setGivingType] = useState('tithe');
-  const [name, setName] = useState('');
   const [expandedFaq, setExpandedFaq] = useState(null);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Placeholder: in production, integrate Flutterwave or other gateway
-    alert('Thank you for your heart to give. Payment integration can be connected here (e.g. Flutterwave).');
-  };
 
   return (
     <>
@@ -56,73 +36,38 @@ export default function Give() {
             >
               <div className="bg-white p-5 sm:p-6 rounded-xl shadow-md border border-gray-100">
                 <h3 className="font-serif text-xl text-royal mb-4">Give Now</h3>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label htmlFor="give-name" className="form-label">Name (optional)</label>
-                    <input
-                      id="give-name"
-                      type="text"
-                      autoComplete="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="form-input"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="give-amount" className="form-label">Amount (MK)</label>
-                    <div className="grid grid-cols-2 xs:grid-cols-4 gap-2 mb-2">
-                      {presetAmounts.map((preset) => (
-                        <button
-                          key={preset}
-                          type="button"
-                          onClick={() => setAmount(String(preset))}
-                          aria-pressed={amount === String(preset)}
-                          className={`py-2.5 rounded-lg border text-sm font-semibold transition-colors ${
-                            amount === String(preset)
-                              ? 'bg-royal border-royal text-white'
-                              : 'bg-white border-gray-300 text-royal hover:border-royal'
-                          }`}
-                        >
-                          {preset.toLocaleString('en-US')}
-                        </button>
-                      ))}
+
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Bank Transfer</h4>
+                <div className="space-y-3 mb-6">
+                  {bankAccounts.map((acc) => (
+                    <div key={`${acc.bank}-${acc.accountNumber}`} className="rounded-lg border border-gray-200 p-4">
+                      <p className="font-semibold text-royal mb-2">{acc.bank}</p>
+                      <dl className="grid sm:grid-cols-2 gap-3">
+                        <div>
+                          <dt className="text-xs text-gray-500">Account name</dt>
+                          <dd className="font-medium text-charcoal">{acc.accountName}</dd>
+                        </div>
+                        <div>
+                          <dt className="text-xs text-gray-500">Account number</dt>
+                          <dd className="text-lg font-semibold text-charcoal tabular-nums">{acc.accountNumber}</dd>
+                        </div>
+                      </dl>
                     </div>
-                    <input
-                      id="give-amount"
-                      type="number"
-                      inputMode="numeric"
-                      min="1"
-                      value={amount}
-                      onChange={(e) => setAmount(e.target.value)}
-                      className="form-input"
-                      placeholder="Or enter another amount"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="give-type" className="form-label">Giving type</label>
-                    <select
-                      id="give-type"
-                      value={givingType}
-                      onChange={(e) => setGivingType(e.target.value)}
-                      className="form-input"
-                    >
-                      {givingTypes.map((t) => (
-                        <option key={t.id} value={t.id}>{t.label}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full bg-gold text-white font-semibold py-3 rounded-lg hover:bg-gold-500 transition-colors"
-                  >
-                    {T('cta.giveNow')}
-                  </button>
-                </form>
-                <p className="text-gray-500 text-sm mt-4">
-                  Payment gateway (e.g. Flutterwave) can be integrated here for real transactions.
-                </p>
+                  ))}
+                </div>
+
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Mobile Money</h4>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {mobileMoney.map((m) => (
+                    <div key={m.provider} className="rounded-lg border border-gray-200 p-4">
+                      <p className="font-semibold text-royal mb-2">{m.provider}</p>
+                      <dl>
+                        <dt className="text-xs text-gray-500">{m.label}</dt>
+                        <dd className="text-lg font-semibold text-charcoal tabular-nums">{m.value}</dd>
+                      </dl>
+                    </div>
+                  ))}
+                </div>
               </div>
             </motion.div>
 
