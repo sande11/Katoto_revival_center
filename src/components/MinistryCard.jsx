@@ -1,21 +1,14 @@
 import { motion } from 'framer-motion';
-
-const iconMap = {
-  youth: '👥',
-  women: '💜',
-  men: '👔',
-  children: '👶',
-  prayer: '🙏',
-  outreach: '🌍',
-  worship: '🎵',
-};
+import { ministryEmoji } from '../data/ministries';
+import { resolveImage } from '../utils/images';
 
 /**
  * Ministry card: icon, name, description, leader, schedule. Optional image.
  */
 export default function MinistryCard({ ministry }) {
-  const { name, description, leader, schedule, icon, image } = ministry;
-  const emoji = iconMap[icon] || '✝️';
+  const { name, description, leader, schedule, icon } = ministry;
+  const emoji = ministryEmoji(icon);
+  const image = resolveImage(ministry.image);
 
   return (
     <motion.article

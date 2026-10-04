@@ -39,6 +39,16 @@
   .snap-row > * {
     @apply snap-start shrink-0 w-[85%] sm:w-[60%] md:w-auto;
   }
+
+  /* Admin dashboard buttons (44px tall for touch) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 min-h-[44px] px-5 rounded-lg bg-gold text-white font-semibold
+      hover:bg-gold-500 transition-colors disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 min-h-[44px] px-5 rounded-lg border border-gray-300 bg-white
+      text-charcoal font-medium hover:border-royal hover:text-royal transition-colors disabled:opacity-60;
+  }
 }
 
 @layer utilities {

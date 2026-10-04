@@ -1,9 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import SectionHeader from '../components/SectionHeader';
 import MinistryCard from '../components/MinistryCard';
-import { ministries } from '../data/ministries';
+import { useContent } from '../utils/content';
 
 export default function Ministries() {
+  const { data: ministries } = useContent('ministries');
+
   return (
     <>
       <Helmet>

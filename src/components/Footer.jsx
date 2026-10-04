@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import logoKatoto from '../assets/logo-ag.png';
 import { churchContact } from '../data/contact';
+import { useContent } from '../utils/content';
 
 const quickLinks = [
   { to: '/about', label: 'About Us' },
@@ -35,14 +36,9 @@ const socialLinks = [
   },
 ];
 
-const serviceTimes = [
-  { day: 'Sunday', time: 'Worship Service — 9:00 AM' },
-  { day: 'Wednesday', time: 'Midweek Prayer — 5:30 PM' },
-  { day: 'Friday', time: 'Youth Service — 6:00 PM' },
-];
-
 export default function Footer() {
   const year = new Date().getFullYear();
+  const { data: serviceTimes } = useContent('service_times');
 
   return (
     <footer style={{ backgroundColor: '#001a4d' }}>
@@ -144,13 +140,13 @@ export default function Footer() {
               Service Times
             </h4>
             <ul className="space-y-3">
-              {serviceTimes.map(({ day, time }) => (
-                <li key={day} className="flex flex-col">
+              {serviceTimes.map(({ id, name, day, time }) => (
+                <li key={id} className="flex flex-col">
                   <span className="text-xs font-bold uppercase tracking-wide" style={{ color: '#C5A059' }}>
                     {day}
                   </span>
                   <span className="text-sm" style={{ color: 'rgba(255,255,255,0.8)' }}>
-                    {time}
+                    {name} — {time}
                   </span>
                 </li>
               ))}

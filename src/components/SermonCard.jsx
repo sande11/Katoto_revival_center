@@ -1,16 +1,14 @@
 import { motion } from 'framer-motion';
+import { formatSermonDate, sermonThumbnail } from '../utils/sermons';
 
 /**
  * Sermon card: thumbnail, title, speaker, date, series, Watch/Listen button.
- * onWatch opens modal or detail with YouTube embed.
+ * onWatch opens modal or detail with the YouTube / Facebook embed.
  */
 export default function SermonCard({ sermon, onWatch }) {
-  const { title, speaker, date, series, thumbnail } = sermon;
-  const formattedDate = new Date(date).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
+  const { title, speaker, date, series } = sermon;
+  const thumbnail = sermonThumbnail(sermon);
+  const formattedDate = formatSermonDate(date);
 
   return (
     <motion.article

@@ -41,9 +41,23 @@ Contact and Prayer forms use EmailJS. To enable:
 
 Until then, the forms will show a fallback message on submit.
 
+## Admin dashboard (Supabase)
+
+Sermons, ministries and service times are managed at `/admin` and stored in [Supabase](https://supabase.com). Until Supabase is configured the site shows the built-in content in `src/data/` and `/admin` shows a setup notice.
+
+1. Create a Supabase project, open **SQL Editor**, and run `supabase/schema.sql`. This creates the tables, the access rules, and the starting ministries and service times.
+2. Copy `.env.example` to `.env.local` and fill in the project URL and publishable key (**Project Settings → API Keys**). Add the same two variables in Netlify under **Site configuration → Environment variables**, then redeploy.
+3. Add each admin under **Authentication → Users → Add user** (tick *Auto Confirm User*), then give them access in the SQL Editor:
+   ```sql
+   insert into public.admins (user_id) select id from auth.users where email = 'person@example.com';
+   ```
+4. Turn off public sign-ups under **Authentication → Sign In / Providers** (*Allow new users to sign up*).
+
+A sermon shows as **live** on the home page on its date (Malawi time) and moves to **past sermons** the next day. Images are either one of the photos in `src/assets/` (stored as `asset:<path>`) or any image link.
+
 ## Content and data
 
-- Placeholder content lives in `src/data/` (sermons, events, ministries, team, testimonials, gallery, prayer requests). Replace with real data or connect to a CMS/API.
+- Placeholder content lives in `src/data/` (sermons, events, ministries, team, testimonials, gallery, prayer requests). Sermons, ministries and service times come from Supabase once it is set up (see above); the files are the fallback.
 - Images use Unsplash URLs (church/worship themed). Swap for your own assets in `src/assets/` or update URLs in the data files.
 - Google Maps embed uses a placeholder; replace the `src` in Contact and Visit pages with your church’s embed URL.
 

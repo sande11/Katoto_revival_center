@@ -4,14 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SectionHeader from '../components/SectionHeader';
 import { churchContact } from '../data/contact';
-
-const serviceTimes = [
-  { name: 'Sunday Worship', time: 'Sunday 9:00 AM' },
-  { name: 'Midweek Prayer', time: 'Wednesday 5:30 PM' },
-  { name: 'Youth Night', time: 'Friday 6:00 PM' },
-  { name: "Women's Fellowship", time: 'First Saturday, 8:00 AM' },
-  { name: "Men's Fellowship", time: 'Second Saturday, 7:00 AM' },
-];
+import { useContent } from '../utils/content';
 
 const steps = [
   { n: 1, title: 'Park & Enter', text: 'Park in the designated area. Greeters will welcome you at the door and direct you.' },
@@ -29,6 +22,7 @@ const visitFaqs = [
 
 export default function Visit() {
   const [openFaq, setOpenFaq] = useState(null);
+  const { data: serviceTimes } = useContent('service_times');
 
   return (
     <>
@@ -50,10 +44,10 @@ export default function Visit() {
             >
               <h3 className="font-serif text-xl text-royal mb-2">Service Times</h3>
               <ul className="divide-y divide-gray-100 text-charcoal">
-                {serviceTimes.map(({ name, time }) => (
-                  <li key={name} className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-x-4 gap-y-0.5 py-3">
+                {serviceTimes.map(({ id, name, day, time }) => (
+                  <li key={id} className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-x-4 gap-y-0.5 py-3">
                     <strong className="font-semibold">{name}</strong>
-                    <span className="text-charcoal/80 text-sm sm:text-base sm:text-right">{time}</span>
+                    <span className="text-charcoal/80 text-sm sm:text-base sm:text-right">{day}, {time}</span>
                   </li>
                 ))}
               </ul>
