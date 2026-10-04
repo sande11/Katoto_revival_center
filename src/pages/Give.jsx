@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import SectionHeader from '../components/SectionHeader';
-import { bankAccounts, mobileMoney } from '../data/giving';
+import { useContent } from '../utils/content';
 
 const faqs = [
   { q: 'Why do we give?', a: 'We give in response to God\'s grace and to support the work of the church—ministry, facilities, outreach, and missions. Giving is an act of worship and trust.' },
@@ -12,6 +12,9 @@ const faqs = [
 
 export default function Give() {
   const [expandedFaq, setExpandedFaq] = useState(null);
+  const { data: methods } = useContent('giving_methods');
+  const banks = methods.filter((method) => method.kind === 'bank').map((method) => ({ bank: method.provider, accountName: method.label, accountNumber: method.value }));
+  const mobile = methods.filter((method) => method.kind === 'mobile').map((method) => ({ provider: method.provider, label: method.label, value: method.value }));
 
   return (
     <>
@@ -39,7 +42,7 @@ export default function Give() {
 
                 <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Bank Transfer</h4>
                 <div className="space-y-3 mb-6">
-                  {bankAccounts.map((acc) => (
+                  {banks.map((acc) => (
                     <div key={`${acc.bank}-${acc.accountNumber}`} className="rounded-lg border border-gray-200 p-4">
                       <p className="font-semibold text-royal mb-2">{acc.bank}</p>
                       <dl className="grid sm:grid-cols-2 gap-3">
@@ -58,7 +61,7 @@ export default function Give() {
 
                 <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Mobile Money</h4>
                 <div className="grid sm:grid-cols-2 gap-3">
-                  {mobileMoney.map((m) => (
+                  {mobile.map((m) => (
                     <div key={m.provider} className="rounded-lg border border-gray-200 p-4">
                       <p className="font-semibold text-royal mb-2">{m.provider}</p>
                       <dl>

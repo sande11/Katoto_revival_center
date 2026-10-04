@@ -3,10 +3,15 @@ import { supabase } from '../utils/supabase';
 import AdminAuthProvider from './AdminAuthProvider';
 import AdminCenteredCard from './AdminCenteredCard';
 import AdminLayout from './AdminLayout';
+import AboutAdmin from './AboutAdmin';
+import ContactAdmin from './ContactAdmin';
 import Dashboard from './Dashboard';
+import EventsAdmin from './EventsAdmin';
+import GivingAdmin from './GivingAdmin';
 import Login from './Login';
 import MinistriesAdmin from './MinistriesAdmin';
 import RequireAdmin from './RequireAdmin';
+import PrayerAdmin from './PrayerAdmin';
 import SermonsAdmin from './SermonsAdmin';
 import ServiceTimesAdmin from './ServiceTimesAdmin';
 
@@ -39,6 +44,11 @@ export default function AdminApp() {
           <Route path="sermons" element={<SermonsAdmin />} />
           <Route path="ministries" element={<MinistriesAdmin />} />
           <Route path="service-times" element={<ServiceTimesAdmin />} />
+          <Route path="about" element={<AboutAdmin />} />
+          <Route path="events" element={<EventsAdmin />} />
+          <Route path="give" element={<GivingAdmin />} />
+          <Route path="contact" element={<ContactAdmin />} />
+          <Route path="prayer" element={<PrayerAdmin />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
       </Routes>

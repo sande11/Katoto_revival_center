@@ -1,14 +1,10 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import emailjs from '@emailjs/browser';
 import { motion } from 'framer-motion';
 import SectionHeader from '../components/SectionHeader';
-import { publicPrayerRequests } from '../data/prayerRequests';
-
-const EMAILJS_SERVICE_ID = 'your_service_id';
-const EMAILJS_TEMPLATE_PRAYER = 'your_prayer_template_id';
-const EMAILJS_PUBLIC_KEY = 'your_public_key';
+import { useContent } from '../utils/content';
+import { supabase } from '../utils/supabase';
 
 export default function Prayer() {
   const { t } = useTranslation();
@@ -17,8 +13,10 @@ export default function Prayer() {
     email: '',
     request: '',
     sharePublic: false,
+    website: '',
   });
   const [status, setStatus] = useState(null);
+  const { data: publicRequests } = useContent('public_prayer_requests');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -29,20 +27,18 @@ export default function Prayer() {
     e.preventDefault();
     setStatus('sending');
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_PRAYER,
-        {
-          from_name: form.name || 'Anonymous',
-          from_email: form.email || '',
-          message: form.request,
-          share_public: form.sharePublic ? 'Yes' : 'No',
-        },
-        EMAILJS_PUBLIC_KEY
-      );
+      if (!supabase) throw new Error('Prayer request service is not configured.');
+      const { error } = await supabase.rpc('submit_prayer_request', {
+        p_name: form.name,
+        p_email: form.email,
+        p_request: form.request,
+        p_share_public: form.sharePublic,
+        p_website: form.website,
+      });
+      if (error) throw error;
       setStatus('success');
-      setForm({ name: '', email: '', request: '', sharePublic: false });
-    } catch (err) {
+      setForm({ name: '', email: '', request: '', sharePublic: false, website: '' });
+    } catch {
       setStatus('error');
     }
   };
@@ -74,6 +70,7 @@ export default function Prayer() {
                     autoComplete="name"
                     value={form.name}
                     onChange={handleChange}
+                    maxLength={120}
                     className="form-input"
                   />
                 </div>
@@ -86,6 +83,7 @@ export default function Prayer() {
                     autoComplete="email"
                     value={form.email}
                     onChange={handleChange}
+                    maxLength={254}
                     className="form-input"
                   />
                 </div>
@@ -98,6 +96,7 @@ export default function Prayer() {
                     value={form.request}
                     onChange={handleChange}
                     required
+                    maxLength={5000}
                     className="form-input"
                     placeholder="Share your prayer need..."
                   />
@@ -115,6 +114,10 @@ export default function Prayer() {
                     <span className="block text-charcoal/60">Leave unchecked to keep your request private.</span>
                   </span>
                 </label>
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="prayer-website">Website</label>
+                  <input id="prayer-website" name="website" tabIndex="-1" autoComplete="off" value={form.website} onChange={handleChange} />
+                </div>
                 <button
                   type="submit"
                   disabled={status === 'sending'}
@@ -133,7 +136,7 @@ export default function Prayer() {
               <h3 className="font-serif text-xl text-royal mb-4">Prayer Wall (shared requests)</h3>
               <p className="text-charcoal/80 text-sm mb-4">Join us in praying for these requests.</p>
               <div className="space-y-4">
-                {publicPrayerRequests.map((pr) => (
+                {publicRequests.map((pr) => (
                   <motion.div
                     key={pr.id}
                     className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm"

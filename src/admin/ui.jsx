@@ -66,7 +66,7 @@ function IconButton({ icon, label, onClick, disabled, danger }) {
 }
 
 /** Edit / delete buttons for a list row, plus move up / down when the list has an order. */
-export function RowActions({ name, onEdit, onDelete, onMoveUp, onMoveDown }) {
+export function RowActions({ name, onEdit, editLabel, onDelete, onMoveUp, onMoveDown }) {
   return (
     <div className="flex items-center flex-shrink-0">
       {onMoveUp !== undefined && (
@@ -75,7 +75,7 @@ export function RowActions({ name, onEdit, onDelete, onMoveUp, onMoveDown }) {
           <IconButton icon="down" label={`Move ${name} down`} onClick={onMoveDown} disabled={!onMoveDown} />
         </>
       )}
-      <IconButton icon="edit" label={`Edit ${name}`} onClick={onEdit} />
+      {onEdit && <IconButton icon="edit" label={editLabel ?? `Edit ${name}`} onClick={onEdit} />}
       <IconButton icon="delete" label={`Delete ${name}`} onClick={onDelete} danger />
     </div>
   );
@@ -87,7 +87,7 @@ export function FormActions({ saving, onCancel, error }) {
     <div className="pt-2">
       {error && <p className="text-sm text-red-600 mb-3" role="alert">{error}</p>}
       <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
-        <button type="button" onClick={onCancel} className="btn-secondary">Cancel</button>
+        {onCancel && <button type="button" onClick={onCancel} className="btn-secondary">Cancel</button>}
         <button type="submit" disabled={saving} className="btn-primary">{saving ? 'Saving…' : 'Save'}</button>
       </div>
     </div>

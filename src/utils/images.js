@@ -25,6 +25,8 @@ const assetUrls = Object.fromEntries(assetImages.map(({ key, url }) => [key, url
 export function resolveImage(value) {
   if (!value) return undefined;
   if (value.startsWith(ASSET_PREFIX)) return assetUrls[value.slice(ASSET_PREFIX.length)];
+  // Static fallback data imports resolve to Vite's local asset URL.
+  if (value.startsWith('/assets/') || value.startsWith('/src/assets/')) return value;
   return /^https?:\/\//i.test(value) ? value : undefined;
 }
 

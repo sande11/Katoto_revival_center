@@ -7,7 +7,6 @@ import sundayCongregation from '../assets/miscellenious/556285033_11342270654257
 import SectionHeader from '../components/SectionHeader';
 import EventCard from '../components/EventCard';
 import CTABanner from '../components/CTABanner';
-import { upcomingEvents } from '../data/events';
 import { testimonials } from '../data/testimonials';
 import { ministryEmoji } from '../data/ministries';
 import { useContent } from '../utils/content';
@@ -22,6 +21,7 @@ export default function Home() {
   const { data: sermons, loading: sermonsLoading } = useContent('sermons');
   const { data: ministries } = useContent('ministries');
   const { data: serviceTimes } = useContent('service_times');
+  const { data: events } = useContent('events');
 
   // Today's sermon fills the live-stream card; on other days the most recent past sermon does
   const today = todayISO();
@@ -332,7 +332,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <SectionHeader title="Upcoming Events" subtitle="Join us for these gatherings" />
           <div className="snap-row md:grid-cols-2 lg:grid-cols-3">
-            {upcomingEvents.slice(0, 3).map((event) => (
+            {events.filter((event) => !event.is_past).slice(0, 3).map((event) => (
               <EventCard key={event.id} event={event} />
             ))}
           </div>

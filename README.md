@@ -8,7 +8,7 @@ A modern, mobile-first React Single Page Application (SPA) for **Katoto Revival 
 - **React Router DOM** — client-side routing
 - **Tailwind CSS** — styling (maroon/gold design system)
 - **Framer Motion** — scroll and route animations
-- **EmailJS** — contact and prayer request forms (configure with your keys)
+- **Supabase** — managed site content, private contact messages, and prayer requests
 - **react-helmet-async** — per-page titles (SEO)
 - **react-i18next** — language toggle (EN/FR)
 
@@ -27,25 +27,11 @@ Open [http://localhost:5173](http://localhost:5173).
 - `npm run build` — production build
 - `npm run preview` — preview production build
 
-## EmailJS setup
-
-Contact and Prayer forms use EmailJS. To enable:
-
-1. Create an account at [emailjs.com](https://www.emailjs.com/).
-2. Add an email service and two templates (contact + prayer request).
-3. In `src/pages/Contact.jsx`, set:
-   - `EMAILJS_SERVICE_ID`
-   - `EMAILJS_TEMPLATE_ID`
-   - `EMAILJS_PUBLIC_KEY`
-4. In `src/pages/Prayer.jsx`, set the same service/key and `EMAILJS_TEMPLATE_PRAYER`.
-
-Until then, the forms will show a fallback message on submit.
-
 ## Admin dashboard (Supabase)
 
-Sermons, ministries and service times are managed at `/admin` and stored in [Supabase](https://supabase.com). Until Supabase is configured the site shows the built-in content in `src/data/` and `/admin` shows a setup notice.
+The pages at `/admin` manage sermons, ministries, service times, About, Events, Give, Contact, and Prayer. They are stored in [Supabase](https://supabase.com). Until Supabase is configured the site shows the built-in content in `src/data/` and `/admin` shows a setup notice.
 
-1. Create a Supabase project, open **SQL Editor**, and run `supabase/schema.sql`. This creates the tables, the access rules, and the starting ministries and service times.
+1. Create a Supabase project, then apply the SQL files in `supabase/migrations/` in timestamp order (or use `supabase db push`). This creates the tables, access rules, starting content, and secure submission functions.
 2. Copy `.env.example` to `.env.local` and fill in the project URL and publishable key (**Project Settings → API Keys**). Add the same two variables in Netlify under **Site configuration → Environment variables**, then redeploy.
 3. Add each admin under **Authentication → Users → Add user** (tick *Auto Confirm User*), then give them access in the SQL Editor:
    ```sql
@@ -53,11 +39,13 @@ Sermons, ministries and service times are managed at `/admin` and stored in [Sup
    ```
 4. Turn off public sign-ups under **Authentication → Sign In / Providers** (*Allow new users to sign up*).
 
+Contact messages and prayer requests are submitted through database functions with server-side validation and a honeypot check. They cannot be read by the public API. A prayer request only appears on the public prayer wall after an admin explicitly publishes it.
+
 A sermon shows as **live** on the home page on its date (Malawi time) and moves to **past sermons** the next day. Images are either one of the photos in `src/assets/` (stored as `asset:<path>`) or any image link.
 
 ## Content and data
 
-- Placeholder content lives in `src/data/` (sermons, events, ministries, team, testimonials, gallery, prayer requests). Sermons, ministries and service times come from Supabase once it is set up (see above); the files are the fallback.
+- Placeholder content lives in `src/data/` (sermons, events, ministries, team, testimonials, gallery, prayer requests). Admin-managed content comes from Supabase once it is set up; the files are the fallback.
 - Images use Unsplash URLs (church/worship themed). Swap for your own assets in `src/assets/` or update URLs in the data files.
 - Google Maps embed uses a placeholder; replace the `src` in Contact and Visit pages with your church’s embed URL.
 

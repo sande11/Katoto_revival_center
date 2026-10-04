@@ -2,6 +2,13 @@ import { useEffect, useState } from 'react';
 import { sermons } from '../data/sermons';
 import { ministries } from '../data/ministries';
 import { serviceTimes } from '../data/serviceTimes';
+import { upcomingEvents, pastEvents } from '../data/events';
+import { bankAccounts, mobileMoney } from '../data/giving';
+import { churchContact } from '../data/contact';
+import { aboutContent } from '../data/aboutContent';
+import { beliefs } from '../data/beliefs';
+import { team } from '../data/team';
+import { publicPrayerRequests } from '../data/prayerRequests';
 
 /**
  * Site content managed from the admin dashboard. Reads come from Supabase;
@@ -11,6 +18,27 @@ const tables = {
   sermons: { orderBy: [['date', false], ['created_at', false]], fallback: sermons },
   ministries: { orderBy: [['sort_order', true], ['created_at', true]], fallback: ministries },
   service_times: { orderBy: [['sort_order', true], ['created_at', true]], fallback: serviceTimes },
+  about_content: { orderBy: [['updated_at', false]], fallback: [aboutContent] },
+  beliefs: { orderBy: [['sort_order', true], ['created_at', true]], fallback: beliefs },
+  team_members: { orderBy: [['sort_order', true], ['created_at', true]], fallback: team },
+  events: {
+    orderBy: [['is_past', true], ['date', true], ['created_at', true]],
+    fallback: [
+      ...upcomingEvents.map((event) => ({ ...event, is_past: false })),
+      ...pastEvents.map((event) => ({ ...event, is_past: true })),
+    ],
+  },
+  giving_methods: {
+    orderBy: [['sort_order', true], ['created_at', true]],
+    fallback: [
+      ...bankAccounts.map((item) => ({ kind: 'bank', provider: item.bank, label: item.accountName, value: item.accountNumber })),
+      ...mobileMoney.map((item) => ({ kind: 'mobile', provider: item.provider, label: item.label, value: item.value })),
+    ],
+  },
+  contact_settings: { orderBy: [['updated_at', false]], fallback: [{ ...churchContact, phone_display: churchContact.phoneDisplay, map_embed_url: churchContact.mapEmbedUrl, directions_url: churchContact.directionsUrl, whatsapp_url: churchContact.whatsappUrl, facebook_url: churchContact.facebookUrl, youtube_url: churchContact.youtubeUrl }] },
+  public_prayer_requests: { orderBy: [['date', false]], fallback: publicPrayerRequests },
+  contact_messages: { orderBy: [['created_at', false]], fallback: [] },
+  prayer_requests: { orderBy: [['created_at', false]], fallback: [] },
 };
 
 const configured = Boolean(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY);

@@ -1,35 +1,31 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import emailjs from '@emailjs/browser';
 import SectionHeader from '../components/SectionHeader';
 import { churchContact } from '../data/contact';
+import { useContent } from '../utils/content';
+import { supabase } from '../utils/supabase';
 
-// EmailJS: replace with your own service ID, template ID, and public key in production
-const EMAILJS_SERVICE_ID = 'your_service_id';
-const EMAILJS_TEMPLATE_ID = 'your_template_id';
-const EMAILJS_PUBLIC_KEY = 'your_public_key';
-
-const quickActions = [
+const quickActions = (contact) => [
   {
     label: 'Call',
-    href: `tel:${churchContact.phone}`,
+    href: `tel:${contact.phone}`,
     icon: 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z',
   },
   {
     label: 'WhatsApp',
-    href: churchContact.whatsappUrl,
+    href: contact.whatsappUrl,
     external: true,
     icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
   },
   {
     label: 'Email',
-    href: `mailto:${churchContact.email}`,
+    href: `mailto:${contact.email}`,
     icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
   },
   {
     label: 'Directions',
-    href: churchContact.directionsUrl,
+    href: contact.directionsUrl,
     external: true,
     icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z',
   },
@@ -37,7 +33,20 @@ const quickActions = [
 
 export default function Contact() {
   const { t } = useTranslation();
-  const [formState, setFormState] = useState({ name: '', email: '', phone: '', message: '' });
+  const { data: settings } = useContent('contact_settings');
+  const stored = settings[0];
+  const contact = stored ? {
+    address: stored.address,
+    email: stored.email,
+    phone: stored.phone,
+    phoneDisplay: stored.phone_display,
+    whatsappUrl: stored.whatsapp_url,
+    facebookUrl: stored.facebook_url,
+    youtubeUrl: stored.youtube_url,
+    mapEmbedUrl: stored.map_embed_url,
+    directionsUrl: stored.directions_url,
+  } : churchContact;
+  const [formState, setFormState] = useState({ name: '', email: '', phone: '', message: '', website: '' });
   const [status, setStatus] = useState(null); // 'sending' | 'success' | 'error'
 
   const handleChange = (e) => {
@@ -49,22 +58,19 @@ export default function Contact() {
     e.preventDefault();
     setStatus('sending');
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name: formState.name,
-          from_email: formState.email,
-          phone: formState.phone,
-          message: formState.message,
-        },
-        EMAILJS_PUBLIC_KEY
-      );
+      if (!supabase) throw new Error('Message service is not configured.');
+      const { error } = await supabase.rpc('submit_contact_message', {
+        p_name: formState.name,
+        p_email: formState.email,
+        p_phone: formState.phone,
+        p_message: formState.message,
+        p_website: formState.website,
+      });
+      if (error) throw error;
       setStatus('success');
-      setFormState({ name: '', email: '', phone: '', message: '' });
-    } catch (err) {
+      setFormState({ name: '', email: '', phone: '', message: '', website: '' });
+    } catch {
       setStatus('error');
-      console.error('EmailJS error:', err);
     }
   };
 
@@ -86,7 +92,7 @@ export default function Contact() {
               <h3 className="font-serif text-xl text-royal mb-4">Church Info</h3>
 
               <div className="grid grid-cols-4 gap-2 sm:gap-3 mb-6">
-                {quickActions.map(({ label, href, external, icon }) => (
+                {quickActions(contact).map(({ label, href, external, icon }) => (
                   <a
                     key={label}
                     href={href}
@@ -102,24 +108,24 @@ export default function Contact() {
               </div>
 
               <ul className="space-y-3 text-charcoal mb-6">
-                <li><strong>Address:</strong> {churchContact.address}</li>
+                <li><strong>Address:</strong> {contact.address}</li>
                 <li>
                   <strong>Email:</strong>{' '}
-                  <a href={`mailto:${churchContact.email}`} className="text-royal underline underline-offset-2 break-all hover:text-gold">
-                    {churchContact.email}
+                  <a href={`mailto:${contact.email}`} className="text-royal underline underline-offset-2 break-all hover:text-gold">
+                    {contact.email}
                   </a>
                 </li>
                 <li>
                   <strong>Phone:</strong>{' '}
-                  <a href={`tel:${churchContact.phone}`} className="text-royal underline underline-offset-2 whitespace-nowrap hover:text-gold">
-                    {churchContact.phoneDisplay}
+                  <a href={`tel:${contact.phone}`} className="text-royal underline underline-offset-2 whitespace-nowrap hover:text-gold">
+                    {contact.phoneDisplay}
                   </a>
                 </li>
               </ul>
               <div className="flex flex-wrap gap-2">
-                <a href={churchContact.facebookUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2.5 rounded-full border border-gray-300 text-sm text-royal hover:border-gold hover:text-gold transition-colors">Facebook</a>
-                <a href={churchContact.youtubeUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2.5 rounded-full border border-gray-300 text-sm text-royal hover:border-gold hover:text-gold transition-colors">YouTube</a>
-                <a href={churchContact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2.5 rounded-full border border-gray-300 text-sm text-royal hover:border-gold hover:text-gold transition-colors">WhatsApp</a>
+                <a href={contact.facebookUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2.5 rounded-full border border-gray-300 text-sm text-royal hover:border-gold hover:text-gold transition-colors">Facebook</a>
+                <a href={contact.youtubeUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2.5 rounded-full border border-gray-300 text-sm text-royal hover:border-gold hover:text-gold transition-colors">YouTube</a>
+                <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2.5 rounded-full border border-gray-300 text-sm text-royal hover:border-gold hover:text-gold transition-colors">WhatsApp</a>
               </div>
             </div>
 
@@ -136,6 +142,7 @@ export default function Contact() {
                     value={formState.name}
                     onChange={handleChange}
                     required
+                    maxLength={120}
                     className="form-input"
                   />
                 </div>
@@ -149,6 +156,7 @@ export default function Contact() {
                     value={formState.email}
                     onChange={handleChange}
                     required
+                    maxLength={254}
                     className="form-input"
                   />
                 </div>
@@ -161,6 +169,7 @@ export default function Contact() {
                     autoComplete="tel"
                     value={formState.phone}
                     onChange={handleChange}
+                    maxLength={40}
                     className="form-input"
                   />
                 </div>
@@ -173,8 +182,13 @@ export default function Contact() {
                     value={formState.message}
                     onChange={handleChange}
                     required
+                    maxLength={5000}
                     className="form-input"
                   />
+                </div>
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="contact-website">Website</label>
+                  <input id="contact-website" name="website" tabIndex="-1" autoComplete="off" value={formState.website} onChange={handleChange} />
                 </div>
                 <button
                   type="submit"
@@ -185,7 +199,7 @@ export default function Contact() {
                 </button>
                 <div aria-live="polite">
                   {status === 'success' && <p className="text-green-600 text-sm">Message sent. We will get back to you soon.</p>}
-                  {status === 'error' && <p className="text-red-600 text-sm">Something went wrong. You can email us directly at {churchContact.email}</p>}
+                  {status === 'error' && <p className="text-red-600 text-sm">Something went wrong. You can email us directly at {contact.email}</p>}
                 </div>
               </form>
             </div>
@@ -193,7 +207,7 @@ export default function Contact() {
             <div className="lg:col-start-2 lg:row-start-2 rounded-xl overflow-hidden border border-gray-200 aspect-[4/3] sm:aspect-video bg-gray-200">
               <iframe
                 title="Church location"
-                src={churchContact.mapEmbedUrl}
+                src={contact.mapEmbedUrl}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
