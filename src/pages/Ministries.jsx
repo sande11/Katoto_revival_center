@@ -1,14 +1,16 @@
 import { Helmet } from 'react-helmet-async';
 import SectionHeader from '../components/SectionHeader';
 import MinistryCard from '../components/MinistryCard';
-import { ministries } from '../data/ministries';
+import { useContent } from '../utils/content';
 
 export default function Ministries() {
+  const { data: ministries } = useContent('ministries');
+
   return (
     <>
       <Helmet>
-        <title>Ministries — Katoto Revival Center</title>
-        <meta name="description" content="Youth, Women, Men, Children, Prayer, Outreach, and Worship at Katoto Revival Center." />
+        <title>Ministries — Katoto Assemblies of God</title>
+        <meta name="description" content="Youth, Women, Men, Children, Prayer, Outreach, and Worship at Katoto Assemblies of God." />
       </Helmet>
 
       <section className="py-12 md:py-16 section-light">

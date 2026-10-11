@@ -17,8 +17,8 @@ export default function Gallery() {
   return (
     <>
       <Helmet>
-        <title>Gallery — Katoto Revival Center</title>
-        <meta name="description" content="Photos from services, events, outreach, and youth at Katoto Revival Center." />
+        <title>Gallery — Katoto Assemblies of God</title>
+        <meta name="description" content="Photos from services, events, outreach, and youth at Katoto Assemblies of God." />
       </Helmet>
 
       <section className="py-12 md:py-16 section-light">

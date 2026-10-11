@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { resolveImage } from '../utils/images';
 
 /**
  * Card for event listing: image, title, date, time, location, description, RSVP link.
  */
 export default function EventCard({ event, onLearnMore }) {
-  const { title, date, time, location, description, image, rsvpLink } = event;
+  const { title, date, time, location, description, image, rsvpLink = event.rsvp_link } = event;
+  const imageSrc = resolveImage(image);
   const formattedDate = new Date(date).toLocaleDateString('en-US', {
     weekday: 'short',
     month: 'short',
@@ -22,12 +24,7 @@ export default function EventCard({ event, onLearnMore }) {
       transition={{ duration: 0.4 }}
     >
       <div className="aspect-video overflow-hidden bg-gray-200">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
+        {imageSrc && <img src={imageSrc} alt={title} className="w-full h-full object-cover" loading="lazy" />}
       </div>
       <div className="p-4 sm:p-5 flex-1 flex flex-col">
         <p className="text-gold font-medium text-sm mb-1">{formattedDate}</p>

@@ -1,23 +1,7 @@
 /**
- * Sermon entries for Sermons page and featured sermon on Home.
- * Replace with real data or API later.
+ * Built-in sermons, shown until Supabase is configured (see utils/content.js).
+ * Same shape as the sermons table: thumbnail is "asset:<path in src/assets>" or an image URL.
  */
-import bishopPreaching from '../assets/pastors/pastor_ndebere.jpeg';
-import praiseTeam from '../assets/praise-team/788034074_28220678387617820_3846632709932615591_n.jpeg';
-import handsRaised from '../assets/miscellenious/556652987_1134227028759112_8645909850777201291_n.jpg';
-import congregation from '../assets/miscellenious/558085996_1134197485428733_8531590517096688607_n.jpg';
-import prayerTime from '../assets/mens-ministry/825273522_1106370072354742_8005794228508173963_n.jpeg';
-import worshipService from '../assets/828228303_2210016379543700_6352385358198203417_n.jpeg';
-
-export const sermonSeries = [
-  'Revival Fire',
-  'Walking in Faith',
-  'The Holy Spirit',
-  'Kingdom Living',
-  'Prayer & Fasting',
-  'Grace & Mercy',
-];
-
 export const sermons = [
   {
     id: '1',
@@ -25,9 +9,8 @@ export const sermons = [
     speaker: 'Bishop Ndewere',
     date: '2025-02-16',
     series: 'Revival Fire',
-    thumbnail: bishopPreaching,
-    youtubeId: 'dQw4w9WgXcQ',
-    notesUrl: '#',
+    thumbnail: 'asset:pastors/pastor_ndebere.jpeg',
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     description: 'Understanding how revival fire transforms hearts and communities.',
   },
   {
@@ -36,9 +19,8 @@ export const sermons = [
     speaker: 'Bishop Ndewere',
     date: '2025-02-09',
     series: 'Walking in Faith',
-    thumbnail: praiseTeam,
-    youtubeId: 'dQw4w9WgXcQ',
-    notesUrl: '#',
+    thumbnail: 'asset:praise-team/788034074_28220678387617820_3846632709932615591_n.jpeg',
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     description: 'Building unshakeable faith in the promises of God.',
   },
   {
@@ -47,9 +29,8 @@ export const sermons = [
     speaker: 'Elder Grace Wanjiru',
     date: '2025-02-02',
     series: 'The Holy Spirit',
-    thumbnail: handsRaised,
-    youtubeId: 'dQw4w9WgXcQ',
-    notesUrl: '#',
+    thumbnail: 'asset:miscellenious/556652987_1134227028759112_8645909850777201291_n.jpg',
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     description: 'Experiencing the presence and power of the Holy Spirit.',
   },
   {
@@ -58,9 +39,8 @@ export const sermons = [
     speaker: 'Bishop Ndewere',
     date: '2025-01-26',
     series: 'Kingdom Living',
-    thumbnail: congregation,
-    youtubeId: 'dQw4w9WgXcQ',
-    notesUrl: '#',
+    thumbnail: 'asset:miscellenious/558085996_1134197485428733_8531590517096688607_n.jpg',
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     description: 'Practical steps to align our lives with God\'s kingdom.',
   },
   {
@@ -69,9 +49,8 @@ export const sermons = [
     speaker: 'Elder Grace Wanjiru',
     date: '2025-01-19',
     series: 'Prayer & Fasting',
-    thumbnail: prayerTime,
-    youtubeId: 'dQw4w9WgXcQ',
-    notesUrl: '#',
+    thumbnail: 'asset:mens-ministry/825273522_1106370072354742_8005794228508173963_n.jpeg',
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     description: 'The power of persistent prayer and fasting.',
   },
   {
@@ -80,9 +59,8 @@ export const sermons = [
     speaker: 'Bishop Ndewere',
     date: '2025-01-12',
     series: 'Grace & Mercy',
-    thumbnail: worshipService,
-    youtubeId: 'dQw4w9WgXcQ',
-    notesUrl: '#',
+    thumbnail: 'asset:828228303_2210016379543700_6352385358198203417_n.jpeg',
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     description: 'Receiving and extending God\'s grace every day.',
   },
 ];

@@ -4,3 +4,9 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# Single-page app: serve index.html for every route so /about, /admin, etc. load on refresh
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200

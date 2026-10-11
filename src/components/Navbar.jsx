@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import logoKatoto from '../assets/logo-katoto.jpg';
+import logoKatoto from '../assets/logo-ag.png';
 import { churchContact } from '../data/contact';
 
 const navItems = [
@@ -51,7 +51,7 @@ export default function Navbar() {
           <Link
             to="/"
             className="flex items-center gap-2 sm:gap-3 min-w-0 group"
-            aria-label="Katoto Revival Center — Home"
+            aria-label="Katoto Assemblies of God — Home"
           >
             <img
               src={logoKatoto}
@@ -63,7 +63,7 @@ export default function Navbar() {
               className="hidden xs:block font-serif font-bold leading-tight tracking-wide text-[0.95rem] sm:text-xl sm:whitespace-nowrap"
               style={{ color: '#C5A059', textShadow: '0 1px 2px rgba(0,0,0,0.35)' }}
             >
-              Katoto <br className="sm:hidden" />Revival Center
+              Katoto <br className="sm:hidden" />Assemblies of God
             </span>
           </Link>
 
