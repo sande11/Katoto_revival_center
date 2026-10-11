@@ -7,7 +7,14 @@ export default function RequireAdmin({ children }) {
   const { status, user, signOut } = useAdminAuth();
   const location = useLocation();
 
-  if (status === 'loading') return <div className="min-h-screen bg-gray-50" />;
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center" role="status">
+        <span className="w-8 h-8 rounded-full border-4 border-royal/15 border-t-royal animate-spin" aria-hidden="true" />
+        <span className="sr-only">Loading…</span>
+      </div>
+    );
+  }
   if (status === 'signed-out') return <Navigate to="/admin/login" replace state={{ from: location.pathname }} />;
   if (status === 'not-admin') {
     return (

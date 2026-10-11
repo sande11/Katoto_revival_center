@@ -49,6 +49,14 @@
     @apply inline-flex items-center justify-center gap-2 min-h-[44px] px-5 rounded-lg border border-gray-300 bg-white
       text-charcoal font-medium hover:border-royal hover:text-royal transition-colors disabled:opacity-60;
   }
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 min-h-[44px] px-5 rounded-lg bg-red-600 text-white font-semibold
+      hover:bg-red-700 transition-colors disabled:opacity-60;
+  }
+  /* Compact variant for buttons inside cards and rows */
+  .btn-sm {
+    @apply min-h-[40px] px-3.5 text-sm;
+  }
 }
 
 @layer utilities {

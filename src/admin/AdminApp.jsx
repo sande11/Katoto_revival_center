@@ -9,6 +9,7 @@ import Dashboard from './Dashboard';
 import EventsAdmin from './EventsAdmin';
 import GivingAdmin from './GivingAdmin';
 import Login from './Login';
+import MessagesAdmin from './MessagesAdmin';
 import MinistriesAdmin from './MinistriesAdmin';
 import RequireAdmin from './RequireAdmin';
 import PrayerAdmin from './PrayerAdmin';
@@ -47,6 +48,7 @@ export default function AdminApp() {
           <Route path="about" element={<AboutAdmin />} />
           <Route path="events" element={<EventsAdmin />} />
           <Route path="give" element={<GivingAdmin />} />
+          <Route path="messages" element={<MessagesAdmin />} />
           <Route path="contact" element={<ContactAdmin />} />
           <Route path="prayer" element={<PrayerAdmin />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />

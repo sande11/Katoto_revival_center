@@ -1,19 +1,138 @@
-import { useState } from 'react';
 import { useAdminTable } from './useAdminTable';
-import { useSaveForm } from './useSaveForm';
-import { ErrorNote, FormActions, PageHeader, RowActions } from './ui';
+import { useFeedback } from './feedback';
+import { useFormValues, useSaveForm } from './formState';
+import { ErrorNote, Field, FormActions, PageHeader } from './ui';
 import { churchContact } from '../data/contact';
 
+const sections = [
+  {
+    title: 'Contact details',
+    fields: [
+      { name: 'address', label: 'Address', required: true, wide: true },
+      { name: 'email', label: 'Email', type: 'email', required: true },
+      { name: 'phone_display', label: 'Phone number', required: true, inputMode: 'tel', hint: 'As it should appear on the site, e.g. +265 998 107 748.' },
+      { name: 'phone', label: 'Number for tap-to-call', required: true, inputMode: 'tel', hint: 'Filled in from the phone number; change only if calls should go elsewhere.' },
+    ],
+  },
+  {
+    title: 'Social media',
+    fields: [
+      { name: 'whatsapp_url', label: 'WhatsApp link', type: 'url', hint: 'e.g. https://wa.me/265998107748' },
+      { name: 'facebook_url', label: 'Facebook page', type: 'url' },
+      { name: 'youtube_url', label: 'YouTube channel', type: 'url' },
+    ],
+  },
+  {
+    title: 'Map & directions',
+    fields: [
+      {
+        name: 'map_embed_url',
+        label: 'Google Maps embed',
+        type: 'url',
+        wide: true,
+        hint: 'In Google Maps: Share → Embed a map → Copy HTML, then paste it here. The link is picked out automatically.',
+      },
+      { name: 'directions_url', label: 'Directions link', type: 'url', wide: true, hint: 'Opens turn-by-turn directions in Google Maps.' },
+    ],
+  },
+];
+
+const allFields = sections.flatMap((s) => s.fields);
+const defaults = {
+  address: churchContact.address,
+  email: churchContact.email,
+  phone: churchContact.phone,
+  phone_display: churchContact.phoneDisplay,
+  whatsapp_url: churchContact.whatsappUrl,
+  facebook_url: churchContact.facebookUrl,
+  youtube_url: churchContact.youtubeUrl,
+  map_embed_url: churchContact.mapEmbedUrl,
+  directions_url: churchContact.directionsUrl,
+};
+
+// "+265 998-107 748" → "+265998107748"
+const toDialable = (text) => text.replace(/[^\d+]/g, '');
+
 function SettingsForm({ settings, onSave }) {
-  const defaults = { address: churchContact.address, email: churchContact.email, phone: churchContact.phone, phone_display: churchContact.phoneDisplay, whatsapp_url: churchContact.whatsappUrl, facebook_url: churchContact.facebookUrl, youtube_url: churchContact.youtubeUrl, map_embed_url: churchContact.mapEmbedUrl, directions_url: churchContact.directionsUrl };
-  const [values, setValues] = useState({ ...defaults, ...settings }); const { saving, error, submit } = useSaveForm(onSave); const set = (field) => (event) => setValues((current) => ({ ...current, [field]: event.target.value }));
-  const fields = [['address', 'Address'], ['email', 'Email'], ['phone', 'Phone number'], ['phone_display', 'Phone number display'], ['whatsapp_url', 'WhatsApp URL'], ['facebook_url', 'Facebook URL'], ['youtube_url', 'YouTube URL'], ['directions_url', 'Directions URL'], ['map_embed_url', 'Google Maps embed URL']];
-  return <form onSubmit={(event) => submit(event, Object.fromEntries(fields.map(([key]) => [key, values[key].trim() || null])))} className="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 space-y-4"><p className="text-sm text-charcoal/70">These details appear on the Contact page. Visitor messages below are private and available only to signed-in admins.</p><div className="grid sm:grid-cols-2 gap-4">{fields.map(([key, label]) => <div key={key} className={key === 'address' || key === 'map_embed_url' ? 'sm:col-span-2' : ''}><label htmlFor={`contact-setting-${key}`} className="form-label">{label}</label><input id={`contact-setting-${key}`} type={key.endsWith('_url') ? 'url' : key === 'email' ? 'email' : 'text'} required={['address', 'email', 'phone', 'phone_display'].includes(key)} value={values[key] ?? ''} onChange={set(key)} className="form-input" /></div>)}</div><FormActions saving={saving} error={error} /></form>;
+  const initial = Object.fromEntries(allFields.map(({ name }) => [name, settings?.[name] ?? defaults[name] ?? '']));
+  const { values, setValue, field, dirty, markSaved } = useFormValues(initial);
+  const { saving, error, submit } = useSaveForm(async (cleaned) => {
+    await onSave(cleaned);
+    markSaved();
+  });
+
+  const handleChange = (name) => (e) => {
+    const text = e.target.value;
+    if (name === 'map_embed_url') {
+      // Accept the whole <iframe …> snippet Google gives and keep just its src
+      setValue(name, text.match(/src=["']([^"']+)["']/i)?.[1] ?? text);
+    } else if (name === 'phone_display') {
+      setValue(name, text);
+      // Keep the tap-to-call number in step unless it was set to something different
+      if (values.phone === toDialable(values.phone_display)) setValue('phone', toDialable(text));
+    } else {
+      setValue(name, text);
+    }
+  };
+
+  const handleSubmit = (e) => submit(e, Object.fromEntries(allFields.map(({ name }) => [name, values[name].trim() || null])));
+  const mapUrl = values.map_embed_url?.startsWith('https://') ? values.map_embed_url : null;
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6">
+      <div className="space-y-8">
+        {sections.map((section) => (
+          <fieldset key={section.title}>
+            <legend className="font-serif text-lg font-semibold text-royal mb-4">{section.title}</legend>
+            <div className="grid sm:grid-cols-2 gap-x-4 gap-y-5">
+              {section.fields.map(({ name, label, type = 'text', required, wide, hint, inputMode }) => (
+                <Field key={name} id={`contact-${name}`} label={label} optional={!required} hint={hint} className={wide ? 'sm:col-span-2' : ''}>
+                  <input
+                    id={`contact-${name}`}
+                    type={name === 'map_embed_url' ? 'text' : type}
+                    inputMode={inputMode ?? (type === 'url' ? 'url' : undefined)}
+                    required={required}
+                    className="form-input"
+                    {...field(name)}
+                    onChange={handleChange(name)}
+                  />
+                </Field>
+              ))}
+            </div>
+            {section.title === 'Map & directions' && mapUrl && (
+              <div className="mt-4">
+                <p className="form-label">Map preview</p>
+                <iframe title="Map preview" src={mapUrl} className="w-full h-56 rounded-lg border border-gray-200" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+              </div>
+            )}
+          </fieldset>
+        ))}
+      </div>
+      <FormActions saving={saving} error={error} dirty={dirty} saveLabel="Save changes" />
+    </form>
+  );
 }
 
 export default function ContactAdmin() {
-  const settings = useAdminTable('contact_settings'); const messages = useAdminTable('contact_messages'); const [actionError, setActionError] = useState('');
-  const save = async (values) => { const current = settings.rows[0]; if (current) await settings.mutate((q) => q.update({ ...values, updated_at: new Date().toISOString() }).eq('id', current.id)); else await settings.mutate((q) => q.insert({ id: true, ...values })); };
-  const run = async (action, label) => { try { setActionError(''); await action(); } catch (err) { setActionError(`${label}: ${err.message}`); } };
-  return <><PageHeader title="Contact" description="Update contact details and read messages sent through the website." /><ErrorNote>{settings.error || messages.error || actionError}</ErrorNote><SettingsForm key={settings.rows[0]?.id ?? 'loading'} settings={settings.rows[0]} onSave={save} /><section className="mt-10"><h2 className="text-lg mb-1">Messages</h2><p className="text-sm text-charcoal/60 mb-3">Newest first. Marking a message as read is visible only to admins.</p>{!messages.loading && !messages.rows.length ? <div className="rounded-xl border-2 border-dashed border-gray-200 bg-white px-6 py-10 text-center text-charcoal/70">No messages yet.</div> : <ul className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">{messages.rows.map((message) => <li key={message.id} className={`p-4 ${message.is_read ? '' : 'bg-gold/5'}`}><div className="flex gap-3"><div className="min-w-0 flex-1"><p className="font-semibold text-royal">{message.name} {!message.is_read && <span className="ml-2 text-xs font-sans uppercase tracking-wide text-gold">New</span>}</p><p className="text-sm text-charcoal/70 break-all">{message.email}{message.phone && ` · ${message.phone}`}</p><p className="text-sm text-charcoal whitespace-pre-wrap mt-2">{message.message}</p><p className="text-xs text-charcoal/50 mt-2">{new Date(message.created_at).toLocaleString()}</p></div><RowActions name={`message from ${message.name}`} editLabel={message.is_read ? 'Mark message as unread' : 'Mark message as read'} onEdit={() => run(() => messages.mutate((q) => q.update({ is_read: !message.is_read }).eq('id', message.id)), "Couldn't update message")} onDelete={() => window.confirm('Delete this message? This cannot be undone.') && run(() => messages.mutate((q) => q.delete().eq('id', message.id)), "Couldn't delete message")} /></div></li>)}</ul>}</section></>;
+  const settings = useAdminTable('contact_settings');
+  const { toast } = useFeedback();
+
+  const save = async (values) => {
+    const current = settings.rows[0];
+    if (current) await settings.mutate((q) => q.update({ ...values, updated_at: new Date().toISOString() }).eq('id', current.id));
+    else await settings.mutate((q) => q.insert({ id: true, ...values }));
+    toast('Church details saved');
+  };
+
+  return (
+    <>
+      <PageHeader title="Church details" description="Address, phone, email, social links and map shown on the Contact page." />
+      <ErrorNote>{settings.error}</ErrorNote>
+      {settings.loading ? (
+        <div className="h-96 rounded-xl bg-white border border-gray-200 animate-pulse" aria-hidden="true" />
+      ) : (
+        <SettingsForm key={settings.rows[0]?.updated_at ?? 'new'} settings={settings.rows[0]} onSave={save} />
+      )}
+    </>
+  );
 }

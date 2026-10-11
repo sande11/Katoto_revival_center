@@ -1,14 +1,16 @@
-import { useState } from 'react';
-import Modal from '../components/Modal';
+import AdminFormModal from './AdminFormModal';
 import ImagePicker from './ImagePicker';
-import { useAdminTable } from './useAdminTable';
-import { useSaveForm } from './useSaveForm';
-import { AddIcon, EmptyState, ErrorNote, FormActions, PageHeader, RowActions } from './ui';
+import { ItemList, ItemRow, RowActions, RowThumb } from './rows';
+import { AddButton, Badge, EmptyState, ErrorNote, Field, FormActions, ListSkeleton, PageHeader } from './ui';
+import { useFormValues, useSaveForm } from './formState';
+import { orderedRowActions, useAdminList } from './useAdminList';
 import { ministryEmoji, ministryIcons } from '../data/ministries';
 import { resolveImage } from '../utils/images';
 
-function MinistryForm({ ministry, onSave, onCancel }) {
-  const [values, setValues] = useState({
+const HOME_PAGE_COUNT = 6;
+
+function MinistryForm({ ministry, onSave }) {
+  const { values, setValue, field } = useFormValues({
     name: ministry.name ?? '',
     description: ministry.description ?? '',
     leader: ministry.leader ?? '',
@@ -17,7 +19,6 @@ function MinistryForm({ ministry, onSave, onCancel }) {
     image: ministry.image ?? '',
   });
   const { saving, error, submit } = useSaveForm(onSave);
-  const set = (field) => (e) => setValues((v) => ({ ...v, [field]: e.target.value }));
 
   const handleSubmit = (e) =>
     submit(e, {
@@ -32,123 +33,81 @@ function MinistryForm({ ministry, onSave, onCancel }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid grid-cols-[1fr_auto] gap-4">
-        <div>
-          <label htmlFor="ministry-name" className="form-label">Name</label>
-          <input id="ministry-name" required value={values.name} onChange={set('name')} className="form-input" />
-        </div>
-        <div>
-          <label htmlFor="ministry-icon" className="form-label">Icon</label>
-          <select id="ministry-icon" value={values.icon} onChange={set('icon')} className="form-input pr-8">
+        <Field id="ministry-name" label="Name">
+          <input id="ministry-name" required placeholder="e.g. Youth Ministry" className="form-input" {...field('name')} />
+        </Field>
+        <Field id="ministry-icon" label="Icon">
+          <select id="ministry-icon" className="form-input pr-8" {...field('icon')}>
             {Object.entries(ministryIcons).map(([key, { emoji, label }]) => (
               <option key={key} value={key}>{emoji} {label}</option>
             ))}
             <option value="">✝️ Other</option>
           </select>
-        </div>
+        </Field>
       </div>
 
-      <div>
-        <label htmlFor="ministry-description" className="form-label">Description</label>
-        <textarea id="ministry-description" required rows={3} value={values.description} onChange={set('description')} className="form-input" />
-      </div>
+      <Field id="ministry-description" label="Description" hint="One or two sentences. The home page shows the first two lines.">
+        <textarea id="ministry-description" required rows={3} className="form-input" {...field('description')} />
+      </Field>
 
       <div className="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="ministry-leader" className="form-label">Leader <span className="text-charcoal/50 font-normal">(optional)</span></label>
-          <input id="ministry-leader" value={values.leader} onChange={set('leader')} placeholder="e.g. Bro. David Kimani" className="form-input" />
-        </div>
-        <div>
-          <label htmlFor="ministry-schedule" className="form-label">When they meet <span className="text-charcoal/50 font-normal">(optional)</span></label>
-          <input id="ministry-schedule" value={values.schedule} onChange={set('schedule')} placeholder="e.g. Fridays, 6:00 PM" className="form-input" />
-        </div>
+        <Field id="ministry-leader" label="Leader" optional>
+          <input id="ministry-leader" placeholder="e.g. Bro. David Kimani" className="form-input" {...field('leader')} />
+        </Field>
+        <Field id="ministry-schedule" label="When they meet" optional>
+          <input id="ministry-schedule" placeholder="e.g. Fridays, 6:00 PM" className="form-input" {...field('schedule')} />
+        </Field>
       </div>
 
-      <div>
-        <p className="form-label">Image <span className="text-charcoal/50 font-normal">(optional)</span></p>
-        <ImagePicker id="ministry-image" value={values.image} onChange={(image) => setValues((v) => ({ ...v, image }))} />
-      </div>
+      <Field label="Photo" optional>
+        <ImagePicker id="ministry-image" value={values.image} onChange={(image) => setValue('image', image)} />
+      </Field>
 
-      <FormActions saving={saving} onCancel={onCancel} error={error} />
+      <FormActions saving={saving} error={error} saveLabel={ministry.id ? 'Save changes' : 'Add ministry'} />
     </form>
   );
 }
 
 export default function MinistriesAdmin() {
-  const { rows, loading, error, mutate, reorder, nextSortOrder } = useAdminTable('ministries');
-  const [editing, setEditing] = useState(null);
-  const [actionError, setActionError] = useState('');
-
-  const handleSave = async (values) => {
-    if (editing.id) await mutate((q) => q.update(values).eq('id', editing.id));
-    else await mutate((q) => q.insert({ ...values, sort_order: nextSortOrder }));
-    setEditing(null);
-  };
-
-  const runAction = async (action, failure) => {
-    setActionError('');
-    try {
-      await action();
-    } catch (err) {
-      setActionError(`${failure}: ${err.message}`);
-    }
-  };
-
-  const handleDelete = (ministry) => {
-    if (!window.confirm(`Delete “${ministry.name}”? This can’t be undone.`)) return;
-    runAction(() => mutate((q) => q.delete().eq('id', ministry.id)), "Couldn't delete");
-  };
+  const list = useAdminList('ministries', { noun: 'ministry', nameOf: (m) => m.name, ordered: true });
 
   return (
     <>
       <PageHeader
         title="Ministries"
-        description="Shown on the Ministries page in this order. The first six also appear on the home page."
-        action={
-          <button type="button" onClick={() => setEditing({ icon: 'youth' })} className="btn-primary">
-            <AddIcon /> Add ministry
-          </button>
-        }
+        description={`Shown on the Ministries page in this order. The first ${HOME_PAGE_COUNT} also appear on the home page.`}
+        action={<AddButton onClick={() => list.startAdding({ icon: 'youth' })}>Add ministry</AddButton>}
       />
-      <ErrorNote>{error || actionError}</ErrorNote>
+      <ErrorNote>{list.error}</ErrorNote>
 
-      {!loading && rows.length === 0 && !error && <EmptyState>No ministries yet.</EmptyState>}
+      {list.loading && <ListSkeleton rows={5} />}
 
-      {rows.length > 0 && (
-        <ol className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
-          {rows.map((ministry, i) => {
-            const image = resolveImage(ministry.image);
-            return (
-              <li key={ministry.id} className="flex items-center gap-3 p-3 sm:p-4">
-                <div className="w-16 sm:w-24 aspect-video rounded-md overflow-hidden bg-gray-100 flex-shrink-0 flex items-center justify-center text-2xl">
-                  {image ? <img src={image} alt="" className="w-full h-full object-cover" loading="lazy" /> : <span aria-hidden="true">{ministryEmoji(ministry.icon)}</span>}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="font-semibold text-royal truncate">
-                    <span aria-hidden="true">{ministryEmoji(ministry.icon)}</span> {ministry.name}
-                    {i < 6 && <span className="ml-2 align-middle text-[0.65rem] font-sans font-semibold uppercase tracking-wide text-gold">Home page</span>}
-                  </p>
-                  <p className="text-sm text-charcoal/70 truncate">
-                    {[ministry.leader, ministry.schedule].filter(Boolean).join(' · ') || ministry.description}
-                  </p>
-                </div>
-                <RowActions
-                  name={ministry.name}
-                  onMoveUp={i > 0 ? () => runAction(() => reorder(i, i - 1), "Couldn't reorder") : null}
-                  onMoveDown={i < rows.length - 1 ? () => runAction(() => reorder(i, i + 1), "Couldn't reorder") : null}
-                  onEdit={() => setEditing(ministry)}
-                  onDelete={() => handleDelete(ministry)}
-                />
-              </li>
-            );
-          })}
-        </ol>
+      {!list.loading && list.rows.length === 0 && !list.error && (
+        <EmptyState icon="ministries" title="No ministries yet" action={<AddButton onClick={() => list.startAdding({ icon: 'youth' })}>Add a ministry</AddButton>}>
+          Add the church’s ministries so visitors can find a place to belong.
+        </EmptyState>
       )}
 
-      <Modal isOpen={editing !== null} onClose={() => setEditing(null)} title={editing?.id ? 'Edit ministry' : 'Add ministry'}>
-        {editing && (
-          <MinistryForm key={editing.id ?? 'new'} ministry={editing} onSave={handleSave} onCancel={() => setEditing(null)} />
-        )}
-      </Modal>
+      {list.rows.length > 0 && (
+        <ItemList ordered>
+          {list.rows.map((ministry, i) => (
+            <ItemRow
+              key={ministry.id}
+              media={<RowThumb src={resolveImage(ministry.image)} fallback={ministryEmoji(ministry.icon)} />}
+              title={`${ministryEmoji(ministry.icon)} ${ministry.name}`}
+              openLabel={`Edit ${ministry.name}`}
+              onOpen={() => list.startEditing(ministry)}
+              badges={i < HOME_PAGE_COUNT && <Badge tone="gold">Home page</Badge>}
+              meta={[ministry.leader, ministry.schedule].filter(Boolean).join(' · ') || ministry.description}
+              actions={<RowActions name={ministry.name} items={orderedRowActions(list, ministry, i)} />}
+            />
+          ))}
+        </ItemList>
+      )}
+
+      <AdminFormModal isOpen={list.editing !== null} onClose={list.closeForm} title={list.editing?.id ? 'Edit ministry' : 'Add ministry'}>
+        {list.editing && <MinistryForm key={list.editing.id ?? 'new'} ministry={list.editing} onSave={list.save} />}
+      </AdminFormModal>
     </>
   );
 }

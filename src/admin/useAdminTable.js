@@ -2,6 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase';
 import { invalidateContent, selectOrdered } from '../utils/content';
 
+/** Window event fired after any admin write (detail = table name), e.g. to refresh inbox counts. */
+export const ADMIN_DATA_CHANGED = 'admin-data-changed';
+
+function announceChange(table) {
+  invalidateContent(table);
+  window.dispatchEvent(new CustomEvent(ADMIN_DATA_CHANGED, { detail: table }));
+}
+
 /**
  * Rows of one content table for an admin screen.
  * Every write also clears the public site's cached copy so the change shows up straight away.
@@ -16,7 +24,7 @@ export function useAdminTable(table) {
       setRows(await selectOrdered(supabase, table));
       setError('');
     } catch (err) {
-      setError(`Couldn't load ${table.replace('_', ' ')}: ${err.message}`);
+      setError(`Couldn't load ${table.replaceAll('_', ' ')}: ${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -29,7 +37,7 @@ export function useAdminTable(table) {
   /** Runs one write, e.g. mutate((q) => q.delete().eq('id', id)); throws if Supabase rejects it. */
   const mutate = useCallback(async (request) => {
     const { error: writeError } = await request(supabase.from(table));
-    invalidateContent(table);
+    announceChange(table);
     if (writeError) throw writeError;
     await reload();
   }, [table, reload]);
@@ -43,7 +51,7 @@ export function useAdminTable(table) {
     const results = await Promise.all(
       next.map((row, i) => (row.sort_order === i ? null : supabase.from(table).update({ sort_order: i }).eq('id', row.id))),
     );
-    invalidateContent(table);
+    announceChange(table);
     await reload();
     const failed = results.find((r) => r?.error);
     if (failed) throw failed.error;
