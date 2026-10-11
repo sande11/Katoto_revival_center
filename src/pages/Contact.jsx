@@ -77,8 +77,8 @@ export default function Contact() {
   return (
     <>
       <Helmet>
-        <title>Contact — Katoto Revival Center</title>
-        <meta name="description" content="Get in touch with Katoto Revival Center. Visit, call, or send a message." />
+        <title>Contact — Katoto Assemblies of God</title>
+        <meta name="description" content="Get in touch with Katoto Assemblies of God. Visit, call, or send a message." />
       </Helmet>
 
       <section className="py-12 md:py-16 section-light">

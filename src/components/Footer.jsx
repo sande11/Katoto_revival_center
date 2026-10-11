@@ -54,12 +54,12 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <img
                 src={logoKatoto}
-                alt="Katoto Revival Center Logo"
+                alt="Katoto Assemblies of God Logo"
                 className="w-12 h-12 rounded-full object-cover flex-shrink-0 border-2"
                 style={{ borderColor: '#C5A059' }}
               />
               <h3 className="font-serif font-semibold text-white text-lg leading-tight">
-                Katoto Revival Center
+                Katoto Assemblies of God
               </h3>
             </div>
             <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.75)' }}>
@@ -236,7 +236,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
         <div className="container mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-center" style={{ color: 'rgba(255,255,255,0.55)' }}>
-          <p>&copy; {year} Katoto Revival Center. All rights reserved.</p>
+          <p>&copy; {year} Katoto Assemblies of God. All rights reserved.</p>
           <p>
             Developed by{' '}
             <a

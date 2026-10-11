@@ -67,7 +67,7 @@ export default function AdminLayout() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>Admin — Katoto Revival Center</title>
+        <title>Admin — Katoto Assemblies of God</title>
         <meta name="robots" content="noindex" />
       </Helmet>
 

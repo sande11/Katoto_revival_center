@@ -46,8 +46,8 @@ export default function Prayer() {
   return (
     <>
       <Helmet>
-        <title>Prayer Requests — Katoto Revival Center</title>
-        <meta name="description" content="Submit a prayer request or pray for others at Katoto Revival Center." />
+        <title>Prayer Requests — Katoto Assemblies of God</title>
+        <meta name="description" content="Submit a prayer request or pray for others at Katoto Assemblies of God." />
       </Helmet>
 
       <section className="py-12 md:py-16 section-light">

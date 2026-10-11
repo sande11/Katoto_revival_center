@@ -13,13 +13,13 @@ export default function About() {
   return (
     <>
       <Helmet>
-        <title>About Us — Katoto Revival Center</title>
-        <meta name="description" content="Our story, vision, mission, beliefs, and leadership at Katoto Revival Center." />
+        <title>About Us — Katoto Assemblies of God</title>
+        <meta name="description" content="Our story, vision, mission, beliefs, and leadership at Katoto Assemblies of God." />
       </Helmet>
 
       <section className="py-12 md:py-24 section-light">
         <div className="container mx-auto px-4">
-          <SectionHeader title={content.story_title} subtitle="How Katoto Revival Center began" />
+          <SectionHeader title={content.story_title} subtitle="How Katoto Assemblies of God began" />
           <motion.div
             className="max-w-3xl mx-auto text-charcoal leading-relaxed space-y-4"
             initial={{ opacity: 0, y: 20 }}

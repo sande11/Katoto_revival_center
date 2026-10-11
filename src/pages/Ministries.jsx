@@ -9,8 +9,8 @@ export default function Ministries() {
   return (
     <>
       <Helmet>
-        <title>Ministries — Katoto Revival Center</title>
-        <meta name="description" content="Youth, Women, Men, Children, Prayer, Outreach, and Worship at Katoto Revival Center." />
+        <title>Ministries — Katoto Assemblies of God</title>
+        <meta name="description" content="Youth, Women, Men, Children, Prayer, Outreach, and Worship at Katoto Assemblies of God." />
       </Helmet>
 
       <section className="py-12 md:py-16 section-light">

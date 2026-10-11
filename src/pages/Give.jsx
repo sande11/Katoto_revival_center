@@ -19,8 +19,8 @@ export default function Give() {
   return (
     <>
       <Helmet>
-        <title>Give — Katoto Revival Center</title>
-        <meta name="description" content="Give tithes, offerings, and support the building fund at Katoto Revival Center." />
+        <title>Give — Katoto Assemblies of God</title>
+        <meta name="description" content="Give tithes, offerings, and support the building fund at Katoto Assemblies of God." />
       </Helmet>
 
       <section className="py-12 md:py-16 section-light">

@@ -55,8 +55,8 @@ export default function Sermons() {
   return (
     <>
       <Helmet>
-        <title>Sermons — Katoto Revival Center</title>
-        <meta name="description" content="Watch and listen to sermons from Katoto Revival Center." />
+        <title>Sermons — Katoto Assemblies of God</title>
+        <meta name="description" content="Watch and listen to sermons from Katoto Assemblies of God." />
       </Helmet>
 
       <section className="py-12 md:py-16 section-light">

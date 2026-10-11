@@ -27,8 +27,8 @@ export default function Visit() {
   return (
     <>
       <Helmet>
-        <title>Plan Your Visit — Katoto Revival Center</title>
-        <meta name="description" content="Service times, what to expect, dress code, parking, and directions to Katoto Revival Center." />
+        <title>Plan Your Visit — Katoto Assemblies of God</title>
+        <meta name="description" content="Service times, what to expect, dress code, parking, and directions to Katoto Assemblies of God." />
       </Helmet>
 
       <section className="py-12 md:py-16 section-light">

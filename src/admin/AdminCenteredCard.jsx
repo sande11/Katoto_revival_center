@@ -7,7 +7,7 @@ export default function AdminCenteredCard({ title, children }) {
       <div className="w-full max-w-sm bg-white rounded-xl shadow-xl p-6 sm:p-8">
         <div className="flex flex-col items-center text-center mb-6">
           <img src={logo} alt="" className="w-16 h-16 rounded-full border-2 border-gold mb-3" />
-          <p className="text-xs font-semibold uppercase tracking-widest text-gold">Katoto Revival Center</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-gold">Katoto Assemblies of God</p>
           <h1 className="text-2xl mt-1">{title}</h1>
         </div>
         {children}

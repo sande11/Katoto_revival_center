@@ -33,8 +33,8 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>Katoto Revival Center — Experience the Power of Revival</title>
-        <meta name="description" content="Katoto Revival Center. Join us for worship, Word, and community. Experience the power of revival." />
+        <title>Katoto Assemblies of God — Experience the Power of Revival</title>
+        <meta name="description" content="Katoto Assemblies of God. Join us for worship, Word, and community. Experience the power of revival." />
       </Helmet>
 
       {/* Hero: deep blue overlay per Trust & Tradition */}
@@ -63,7 +63,7 @@ export default function Home() {
             transition={{ delay: 0.1, duration: 0.6 }}
           >
             Welcome to
-            <span className="block text-gold">Katoto Revival Center</span>
+            <span className="block text-gold">Katoto Assemblies of God</span>
           </motion.h1>
           <motion.p
             className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 mb-6 sm:mb-8 max-w-2xl drop-shadow-md"

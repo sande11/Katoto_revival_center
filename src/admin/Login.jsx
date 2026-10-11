@@ -32,7 +32,7 @@ export default function Login() {
   return (
     <AdminCenteredCard title="Admin sign in">
       <Helmet>
-        <title>Admin sign in — Katoto Revival Center</title>
+        <title>Admin sign in — Katoto Assemblies of God</title>
         <meta name="robots" content="noindex" />
       </Helmet>
       <form onSubmit={handleSubmit} className="space-y-4">

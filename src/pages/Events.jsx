@@ -17,8 +17,8 @@ export default function Events() {
   return (
     <>
       <Helmet>
-        <title>Events — Katoto Revival Center</title>
-        <meta name="description" content="Upcoming and past events at Katoto Revival Center." />
+        <title>Events — Katoto Assemblies of God</title>
+        <meta name="description" content="Upcoming and past events at Katoto Assemblies of God." />
       </Helmet>
 
       <section className="py-12 md:py-16 section-light">

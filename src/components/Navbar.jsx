@@ -51,7 +51,7 @@ export default function Navbar() {
           <Link
             to="/"
             className="flex items-center gap-2 sm:gap-3 min-w-0 group"
-            aria-label="Katoto Revival Center — Home"
+            aria-label="Katoto Assemblies of God — Home"
           >
             <img
               src={logoKatoto}
