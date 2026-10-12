@@ -240,7 +240,7 @@ export default function Footer() {
           <p>
             Developed by{' '}
             <a
-              href="https://sandetechnologies.com"
+              href="https://sandetechnologies.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold transition-colors duration-150"
